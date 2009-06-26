@@ -23,6 +23,52 @@ endfunction
 
 
 
+function s:test_myoperator_define_0001()  "{{{1
+  function! TestOperatorFunction(motion_wiseness)
+    " echo getpos("'[") getpos("']")
+    '[,']sort
+  endfunction
+
+  noremap _  xxx
+  Title DefineOperator _  TestOperatorFunction
+
+  Assert maparg('_', 'c') != '' ==> 0
+  Assert maparg('_', 'i') != '' ==> 0
+  Assert maparg('_', 'n') != '' ==> 1
+  Assert maparg('_', 'o') != '' ==> 1
+  Assert maparg('_', 'v') != '' ==> 1
+
+  Assert maparg('_', 'n') =~# '\<TestOperatorFunction\>' ==> 1
+  Assert maparg('_', 'o') == 'g@' ==> 1
+  Assert maparg('_', 'v') =~# '\<TestOperatorFunction\>' ==> 1
+
+  silent put =['a', 'm', 'a', 'n', 'e']
+  -4
+  normal _4j
+  Assert getline('.', line('.')+4) ==> ['a', 'a', 'e', 'm', 'n']
+
+  silent put =['a', 'v', 'r', 'i', 'l']
+  -4
+  normal v4j_
+  Assert getline('.', line('.')+4) ==> ['a', 'i', 'l', 'r', 'v']
+
+  silent put =['a', 'g', 'n', 'e', 's']
+  -4
+  normal _5_
+  Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
+
+  " FIXME: This one works as I expect if '5__' is typed interactively,
+  "        but it doesn't work via :normal and it selects only the current
+  "        line.  Why?
+  " silent put =['a', 'g', 'n', 'e', 's']
+  " -4
+  " normal 5__
+  " Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
+endfunction
+
+
+
+
 Test  "{{{1
 
 " __END__
