@@ -6,6 +6,10 @@ function Call(function_name, ...)
   \           a:000)
 endfunction
 
+function! s:SID_PREFIX()
+  return matchstr(expand('<sfile>'), '\%(^\|\.\.\)\zs<SNR>\d\+_\zeSID_PREFIX$')
+endfunction
+
 
 
 
@@ -96,7 +100,46 @@ endfunction
 
 
 function s:test_myoperator_define_0003()  "{{{1
-  Title "FIXME: With script-local function"
+  execute 'Title DefineOperator @  '.s:SID_PREFIX().'test_operator_function_3'
+  function! s:test_operator_function_3(motion_wiseness)
+    " echo getpos("'[") getpos("']")
+    '[,']sort
+  endfunction
+
+  Assert maparg('@', 'c') != '' ==> 0
+  Assert maparg('@', 'i') != '' ==> 0
+  Assert maparg('@', 'n') != '' ==> 1
+  Assert maparg('@', 'o') != '' ==> 1
+  Assert maparg('@', 'v') != '' ==> 1
+
+  Assert maparg('@', 'n') =~# 'test_operator_function_3\>' ==> 1
+  Assert maparg('@', 'o') == 'g@' ==> 1
+  Assert maparg('@', 'v') =~# 'test_operator_function_3\>' ==> 1
+
+  silent % delete _
+
+  silent put =['a', 'm', 'a', 'n', 'e']
+  -4
+  normal @4j
+  Assert getline('.', line('.')+4) ==> ['a', 'a', 'e', 'm', 'n']
+
+  silent put =['a', 'v', 'r', 'i', 'l']
+  -4
+  normal v4j@
+  Assert getline('.', line('.')+4) ==> ['a', 'i', 'l', 'r', 'v']
+
+  silent put =['a', 'g', 'n', 'e', 's']
+  -4
+  normal @5@
+  Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
+
+  " FIXME: This one works as I expect if '5@@' is typed interactively,
+  "        but it doesn't work via :normal and it selects only the current
+  "        line.  Why?
+  " silent put =['a', 'g', 'n', 'e', 's']
+  " -4
+  " normal 5@@
+  " Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
 endfunction
 
 

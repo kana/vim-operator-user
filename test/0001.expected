@@ -26,8 +26,19 @@ TEST: @0  ==>  "a\nz\nu\n" ... ok
 TEST: @0  ==>  "a\nz\nu\ns\na\n" ... ok
 Result: 3 / 3
 
-===== "FIXME: With script-local function"
-Result: 0 / 0
+===== DefineOperator @  <SNR>39_test_operator_function_3
+TEST: maparg('@', 'c') != ''  ==>  0 ... ok
+TEST: maparg('@', 'i') != ''  ==>  0 ... ok
+TEST: maparg('@', 'n') != ''  ==>  1 ... ok
+TEST: maparg('@', 'o') != ''  ==>  1 ... ok
+TEST: maparg('@', 'v') != ''  ==>  1 ... ok
+TEST: maparg('@', 'n') =~# 'test_operator_function_3\>'  ==>  1 ... ok
+TEST: maparg('@', 'o') == 'g@'  ==>  1 ... ok
+TEST: maparg('@', 'v') =~# 'test_operator_function_3\>'  ==>  1 ... ok
+TEST: getline('.', line('.')+4)  ==>  ['a', 'a', 'e', 'm', 'n'] ... ok
+TEST: getline('.', line('.')+4)  ==>  ['a', 'i', 'l', 'r', 'v'] ... ok
+TEST: getline('.', line('.')+4)  ==>  ['a', 'e', 'g', 'n', 's'] ... ok
+Result: 11 / 11
 
 ===== Total
-Result: 19 / 19
+Result: 30 / 30
