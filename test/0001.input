@@ -70,7 +70,26 @@ endfunction
 
 
 function s:test_myoperator_define_0002()  "{{{1
-  Title "FIXME: {extra} sample"
+  Title DefineOperator _  TestOperatorFunction2
+  \     call TestOperatorFunction2Set('yank')
+  function! TestOperatorFunction2Set(command)
+    let s:command = a:command
+  endfunction
+  function! TestOperatorFunction2(motion_wiseness)
+    execute "'[,']" s:command
+  endfunction
+
+  silent put =['a', 'z', 'u', 's', 'a']
+  -4
+
+  silent normal __
+  Assert @0 ==> "a\n"
+
+  silent normal _2j
+  Assert @0 ==> "a\nz\nu\n"
+
+  silent normal v4j_
+  Assert @0 ==> "a\nz\nu\ns\na\n"
 endfunction
 
 

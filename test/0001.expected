@@ -20,11 +20,14 @@ TEST: getline('.', line('.')+4)  ==>  ['a', 'i', 'l', 'r', 'v'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'e', 'g', 'n', 's'] ... ok
 Result: 11 / 11
 
-===== "FIXME: {extra} sample"
-Result: 0 / 0
+===== DefineOperator _  TestOperatorFunction2     call TestOperatorFunction2Set('yank')
+TEST: @0  ==>  "a\n" ... ok
+TEST: @0  ==>  "a\nz\nu\n" ... ok
+TEST: @0  ==>  "a\nz\nu\ns\na\n" ... ok
+Result: 3 / 3
 
 ===== "FIXME: With script-local function"
 Result: 0 / 0
 
 ===== Total
-Result: 16 / 16
+Result: 19 / 19
