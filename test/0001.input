@@ -69,6 +69,20 @@ endfunction
 
 
 
+function s:test_myoperator_define_0002()  "{{{1
+  Title "FIXME: {extra} sample"
+endfunction
+
+
+
+
+function s:test_myoperator_define_0003()  "{{{1
+  Title "FIXME: With script-local function"
+endfunction
+
+
+
+
 Test  "{{{1
 
 " __END__

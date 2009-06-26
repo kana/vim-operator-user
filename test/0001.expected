@@ -20,5 +20,11 @@ TEST: getline('.', line('.')+4)  ==>  ['a', 'i', 'l', 'r', 'v'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'e', 'g', 'n', 's'] ... ok
 Result: 11 / 11
 
+===== "FIXME: {extra} sample"
+Result: 0 / 0
+
+===== "FIXME: With script-local function"
+Result: 0 / 0
+
 ===== Total
 Result: 16 / 16
