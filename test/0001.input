@@ -24,13 +24,13 @@ endfunction
 
 
 function s:test_myoperator_define_0001()  "{{{1
-  function! TestOperatorFunction(motion_wiseness)
+  function! TestOperatorFunction1(motion_wiseness)
     " echo getpos("'[") getpos("']")
     '[,']sort
   endfunction
 
   noremap _  xxx
-  Title DefineOperator _  TestOperatorFunction
+  Title DefineOperator _  TestOperatorFunction1
 
   Assert maparg('_', 'c') != '' ==> 0
   Assert maparg('_', 'i') != '' ==> 0
@@ -38,9 +38,9 @@ function s:test_myoperator_define_0001()  "{{{1
   Assert maparg('_', 'o') != '' ==> 1
   Assert maparg('_', 'v') != '' ==> 1
 
-  Assert maparg('_', 'n') =~# '\<TestOperatorFunction\>' ==> 1
+  Assert maparg('_', 'n') =~# '\<TestOperatorFunction1\>' ==> 1
   Assert maparg('_', 'o') == 'g@' ==> 1
-  Assert maparg('_', 'v') =~# '\<TestOperatorFunction\>' ==> 1
+  Assert maparg('_', 'v') =~# '\<TestOperatorFunction1\>' ==> 1
 
   silent put =['a', 'm', 'a', 'n', 'e']
   -4
