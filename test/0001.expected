@@ -1,2 +1,10 @@
+===== "Check the existence of <SID>(count) in each mode"
+TEST: maparg(_.'(count)', 'c') != ''  ==>  0 ... ok
+TEST: maparg(_.'(count)', 'i') != ''  ==>  0 ... ok
+TEST: maparg(_.'(count)', 'n') != ''  ==>  1 ... ok
+TEST: maparg(_.'(count)', 'o') != ''  ==>  0 ... ok
+TEST: maparg(_.'(count)', 'v') != ''  ==>  1 ... ok
+Result: 5 / 5
+
 ===== Total
-Result: 0 / 0
+Result: 5 / 5
