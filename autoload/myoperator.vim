@@ -55,7 +55,7 @@ endfunction
 " Misc.  "{{{1
 
 function! s:SID_PREFIX()
-  return matchstr(expand('<sfile>'), '\%(^\|\.\.\)\zs<SNR>\d\+_')
+  return matchstr(expand('<sfile>'), '\%(^\|\.\.\)\zs<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
 
 
