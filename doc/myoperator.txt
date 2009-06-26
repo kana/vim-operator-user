@@ -102,6 +102,12 @@ FUNCTIONS					*myoperator-functions*
 myoperator#define({lhs}, {function}, [{extra}])	*myoperator#define()*
 			Function version of |:DefineOperator|.
 
+myoperator#load()				*myoperator#load()*
+			Load this plugin if it is not loaded yet.  Otherwise,
+			does nothing.  Call this function to ensure that
+			|myoperator-commands| are defined before you use one
+			of them, especially, in your |vimrc|.
+
 
 
 

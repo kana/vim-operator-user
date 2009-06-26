@@ -41,6 +41,13 @@ endfunction
 
 
 
+function! myoperator#load()  "{{{2
+  runtime! plugin/myoperator.vim
+endfunction
+
+
+
+
 function! myoperator#_sid_prefix()  "{{{2
   return s:SID_PREFIX()
 endfunction
