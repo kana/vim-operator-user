@@ -1,9 +1,9 @@
 " Tests for myoperator
 " Set up  "{{{1
 
-let s:SID_PREFIX = myoperator#_sid_prefix()
 function Call(function_name, ...)
-  return call(substitute(a:function_name, '^s:', s:SID_PREFIX, ''), a:000)
+  return call(substitute(a:function_name, '^s:', myoperator#_sid_prefix(), ''),
+  \           a:000)
 endfunction
 
 
@@ -11,12 +11,13 @@ endfunction
 
 function s:test_internal_key_mappings_0001()  "{{{1
   Title "Check the existence of <SID>(count) in each mode"
-  let _ = s:SID_PREFIX
-  Assert maparg(_.'(count)', 'c') != '' ==> 0
-  Assert maparg(_.'(count)', 'i') != '' ==> 0
-  Assert maparg(_.'(count)', 'n') != '' ==> 1
-  Assert maparg(_.'(count)', 'o') != '' ==> 0
-  Assert maparg(_.'(count)', 'v') != '' ==> 1
+
+  let _ = myoperator#_sid_prefix().'(count)'
+  Assert maparg(_, 'c') != '' ==> 0
+  Assert maparg(_, 'i') != '' ==> 0
+  Assert maparg(_, 'n') != '' ==> 1
+  Assert maparg(_, 'o') != '' ==> 0
+  Assert maparg(_, 'v') != '' ==> 1
 endfunction
 
 
