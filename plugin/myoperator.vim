@@ -29,7 +29,8 @@ endif
 
 
 
-command! -nargs=+ DefineOperator  call myoperator#define(<f-args>)
+command! -complete=function -nargs=+ DefineOperator
+\        call myoperator#define(<f-args>)
 
 
 
