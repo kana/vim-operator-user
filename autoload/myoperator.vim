@@ -41,11 +41,23 @@ endfunction
 
 
 
+function! myoperator#_sid_prefix()  "{{{2
+  return s:SID_PREFIX()
+endfunction
+
+
+
+
 
 
 
 
 " Misc.  "{{{1
+
+function! s:SID_PREFIX()
+  return matchstr(expand('<sfile>'), '\%(^\|\.\.\)\zs<SNR>\d\+_')
+endfunction
+
 
 nnoremap <expr> <SID>(count)  v:count == v:count1 ? v:count : ''
 vnoremap <expr> <SID>(count)  v:count == v:count1 ? v:count : ''

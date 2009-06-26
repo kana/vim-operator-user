@@ -1,0 +1,15 @@
+" Tests for myoperator
+" Set up  "{{{1
+
+let s:SID_PREFIX = myoperator#_sid_prefix()
+function Call(function_name, ...)
+  return call(substitute(a:function_name, '^s:', s:SID_PREFIX, ''), a:000)
+endfunction
+
+
+
+
+Test  "{{{1
+
+" __END__
+" vim: filetype=vim foldmethod=marker
