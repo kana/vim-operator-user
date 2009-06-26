@@ -48,8 +48,8 @@ which are provided by this plugin.
 For example, the following setting defines operator "_" to adjust the height
 of the current window to the same as the target range:
 >
-	DefineOperator _  <SID>op_adjust_window_height
-	function! s:op_adjust_window_height(motion_wiseness)
+	DefineOperator _  Op_adjust_window_height
+	function! Op_adjust_window_height(motion_wiseness)
 	  execute (line("']") - line("'[") + 1) 'wincmd' '_'
 	  normal! `[zt
 	endfunction
@@ -110,8 +110,8 @@ EXAMPLES					*myoperator-examples*
 
 (A) The following setting defines operator-version of |:right|:
 >
-	DefineOperator L  <SID>op_command_right
-	function! s:op_command_right(motion_wiseness)
+	DefineOperator L  Op_command_right
+	function! Op_command_right(motion_wiseness)
 	  '[,']right
 	endfunction
 <
@@ -119,20 +119,20 @@ EXAMPLES					*myoperator-examples*
 (B) The following setting defines a generic version of (A).  This is also an
 example to use {extra} of |:DefineOperator|:
 >
-	DefineOperator H  <SID>op_command
-	\              call <SID>set_op_command('left')
-	DefineOperator L  <SID>op_command
-	\              call <SID>set_op_command('right')
-	DefineOperator M  <SID>op_command
-	\              call <SID>set_op_command('center')
+	DefineOperator H  Op_command
+	\              call Set_op_command('left')
+	DefineOperator L  Op_command
+	\              call Set_op_command('right')
+	DefineOperator M  Op_command
+	\              call Set_op_command('center')
 
 	let s:op_command_command = ''
 
-	function! s:set_op_command(command)
+	function! Set_op_command(command)
 	  let s:op_command_command = a:command
 	endfunction
 
-	function! s:op_command(motion_wiseness)
+	function! Op_command(motion_wiseness)
 	  execute "'[,']" s:op_command_command
 	endfunction
 <
