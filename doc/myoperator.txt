@@ -151,7 +151,7 @@ BUGS						*myoperator-bugs*
 
 - |:DefineOperator| defines a key mapping "{lhs} to |g@|" in
   Operator-pending mode to select text linewise like |cc|, |dd|, etc.
-  But this behavior may be halmful in some cases:
+  But this behavior may be harmful in some cases:
 
   (a) If you define two operators "A" and "B", you can operate the cursor line
   with "AA" and "BB".  But you can ALSO operate the cursor line with "AB" and
