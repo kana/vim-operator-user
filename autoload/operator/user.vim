@@ -1,4 +1,4 @@
-" myoperator - Define your own operator easily
+" operator-user - Define your own operator easily
 " Version: 0.0.0
 " Copyright (C) 2009 kana <http://whileimautomaton.net/>
 " License: MIT license  {{{
@@ -22,7 +22,7 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 " Interface  "{{{1
-function! myoperator#define(operator_keyseq, function_name, ...)  "{{{2
+function! operator#user#define(operator_keyseq, function_name, ...)  "{{{2
   if 0 < a:0
     let additional_settings = '\|' . join(a:000)
   else
@@ -41,14 +41,14 @@ endfunction
 
 
 
-function! myoperator#load()  "{{{2
-  runtime! plugin/myoperator.vim
+function! operator#user#load()  "{{{2
+  runtime! plugin/operator#user.vim
 endfunction
 
 
 
 
-function! myoperator#_sid_prefix()  "{{{2
+function! operator#user#_sid_prefix()  "{{{2
   return s:SID_PREFIX()
 endfunction
 

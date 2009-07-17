@@ -1,4 +1,4 @@
-" myoperator - Define your own operator easily
+" operator-user - Define your own operator easily
 " Version: 0.0.0
 " Copyright (C) 2009 kana <http://whileimautomaton.net/>
 " License: MIT license  {{{
@@ -22,7 +22,7 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 
-if exists('g:loaded_myoperator')
+if exists('g:loaded_operator_user')
   finish
 endif
 
@@ -30,12 +30,12 @@ endif
 
 
 command! -complete=function -nargs=+ DefineOperator
-\        call myoperator#define(<f-args>)
+\        call operator#user#define(<f-args>)
 
 
 
 
-let g:loaded_myoperator = 1
+let g:loaded_operator_user = 1
 
 " __END__
 " vim: foldmethod=marker

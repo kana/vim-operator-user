@@ -1,4 +1,4 @@
-*myoperator.txt*	Define your own operator easily
+*operator-user.txt*	Define your own operator easily
 
 Version 0.0.0
 Script ID: 2692
@@ -24,26 +24,26 @@ License: MIT license  {{{
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }}}
 
-CONTENTS					*myoperator-contents*
+CONTENTS					*operator-user-contents*
 
-Introduction		|myoperator-introduction|
-Interface		|myoperator-interface|
-  Commands		  |myoperator-commands|
-  Functions		  |myoperator-functions|
-Examples		|myoperator-examples|
-Bugs			|myoperator-bugs|
-Changelog		|myoperator-changelog|
+Introduction		|operator-user-introduction|
+Interface		|operator-user-interface|
+  Commands		  |operator-user-commands|
+  Functions		  |operator-user-functions|
+Examples		|operator-user-examples|
+Bugs			|operator-user-bugs|
+Changelog		|operator-user-changelog|
 
 
 
 
 ==============================================================================
-INTRODUCTION					*myoperator-introduction*
+INTRODUCTION					*operator-user-introduction*
 
-*myoperator* is a Vim plugin to provide an easy way to define your own
+*operator-user* is a Vim plugin to provide an easy way to define your own
 |operator|.  Though there are several pitfalls to define operators, you don't
-have to take care of them with |:DefineOperator| and/or |myoperator#define()|
-which are provided by this plugin.
+have to take care of them with |:DefineOperator| and/or
+|operator#user#define()| which are provided by this plugin.
 
 For example, the following setting defines operator "_" to adjust the height
 of the current window to the same as the target range:
@@ -61,26 +61,26 @@ You can use this operator as follows:
 
 This operator is useful to adjust the visible content in the current window.
 
-See also |myoperator-exmaples| for more examples and explanations.
+See also |operator-user-exmaples| for more examples and explanations.
 
 
 Requirements:
 - Vim 7.2 or later
 
 Latest version:
-http://github.com/kana/config/commits/vim-myoperator
+http://github.com/kana/config/commits/vim-operator-user
 
 Document in HTML format:
-http://kana.github.com/config/vim/myoperator.html
+http://kana.github.com/config/vim/operator-user.html
 
 
 
 
 ==============================================================================
-INTERFACE					*myoperator-interface*
+INTERFACE					*operator-user-interface*
 
 ------------------------------------------------------------------------------
-COMMANDS					*myoperator-commands*
+COMMANDS					*operator-user-commands*
 
 :DefineOperator {lhs}  {function} [{extra}]	*:DefineOperator*
 			Define a new operator.
@@ -97,22 +97,23 @@ COMMANDS					*myoperator-commands*
 
 
 ------------------------------------------------------------------------------
-FUNCTIONS					*myoperator-functions*
+FUNCTIONS					*operator-user-functions*
 
-myoperator#define({lhs}, {function}, [{extra}])	*myoperator#define()*
+						*operator#user#define()*
+operator#user#define({lhs}, {function}, [{extra}])
 			Function version of |:DefineOperator|.
 
-myoperator#load()				*myoperator#load()*
+operator#user#load()				*operator#user#load()*
 			Load this plugin if it is not loaded yet.  Otherwise,
 			does nothing.  Call this function to ensure that
-			|myoperator-commands| are defined before you use one
+			|operator-user-commands| are defined before you use one
 			of them, especially, in your |vimrc|.
 
 
 
 
 ==============================================================================
-EXAMPLES					*myoperator-examples*
+EXAMPLES					*operator-user-examples*
 
 (A) The following setting defines operator-version of |:right|:
 >
@@ -147,7 +148,7 @@ example to use {extra} of |:DefineOperator|:
 
 
 ==============================================================================
-BUGS						*myoperator-bugs*
+BUGS						*operator-user-bugs*
 
 - |:DefineOperator| defines a key mapping "{lhs} to |g@|" in
   Operator-pending mode to select text linewise like |cc|, |dd|, etc.
@@ -178,7 +179,11 @@ BUGS						*myoperator-bugs*
 
 
 ==============================================================================
-CHANGELOG					*myoperator-changelog*
+CHANGELOG					*operator-user-changelog*
+
+0.0.1	2009-07-18T04:41:22+09:00
+	- Rename as "operator-user".  The old name "myoperator" is not good
+	  for further works.
 
 0.0.0	2009-06-26T02:51:29+09:00
 	- Initial version.

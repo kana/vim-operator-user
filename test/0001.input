@@ -1,8 +1,8 @@
-" Tests for myoperator
+" Tests for operator-user
 " Set up  "{{{1
 
 function Call(function_name, ...)
-  return call(substitute(a:function_name, '^s:', myoperator#_sid_prefix(), ''),
+  return call(substitute(a:function_name,'^s:',operator#user#_sid_prefix(),''),
   \           a:000)
 endfunction
 
@@ -16,7 +16,7 @@ endfunction
 function s:test_internal_key_mappings_0001()  "{{{1
   Title "Check the existence of <SID>(count) in each mode"
 
-  let _ = myoperator#_sid_prefix().'(count)'
+  let _ = operator#user#_sid_prefix().'(count)'
   Assert maparg(_, 'c') != '' ==> 0
   Assert maparg(_, 'i') != '' ==> 0
   Assert maparg(_, 'n') != '' ==> 1
@@ -27,7 +27,7 @@ endfunction
 
 
 
-function s:test_myoperator_define_0001()  "{{{1
+function s:test_operator_user_define_0001()  "{{{1
   function! TestOperatorFunction1(motion_wiseness)
     " echo getpos("'[") getpos("']")
     '[,']sort
@@ -73,7 +73,7 @@ endfunction
 
 
 
-function s:test_myoperator_define_0002()  "{{{1
+function s:test_operator_user_define_0002()  "{{{1
   Title DefineOperator _  TestOperatorFunction2
   \     call TestOperatorFunction2Set('yank')
   function! TestOperatorFunction2Set(command)
@@ -99,7 +99,7 @@ endfunction
 
 
 
-function s:test_myoperator_define_0003()  "{{{1
+function s:test_operator_user_define_0003()  "{{{1
   execute 'Title DefineOperator @  '.s:SID_PREFIX().'test_operator_function_3'
   function! s:test_operator_function_3(motion_wiseness)
     " echo getpos("'[") getpos("']")
