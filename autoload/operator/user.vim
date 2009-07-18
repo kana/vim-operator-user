@@ -42,7 +42,7 @@ endfunction
 
 
 function! operator#user#load()  "{{{2
-  runtime! plugin/operator#user.vim
+  runtime! plugin/operator/user.vim
 endfunction
 
 
