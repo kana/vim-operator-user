@@ -100,7 +100,7 @@ endfunction
 
 
 function s:test_operator_user_define_0003()  "{{{1
-  execute 'Title DefineOperator @  '.s:SID_PREFIX().'test_operator_function_3'
+  execute 'Title DefineOperator @ s:test_operator_function_3'
   function! s:test_operator_function_3(motion_wiseness)
     " echo getpos("'[") getpos("']")
     '[,']sort

@@ -26,7 +26,7 @@ TEST: @0  ==>  "a\nz\nu\n" ... ok
 TEST: @0  ==>  "a\nz\nu\ns\na\n" ... ok
 Result: 3 / 3
 
-===== DefineOperator @  <SNR>39_test_operator_function_3
+===== DefineOperator @ s:test_operator_function_3
 TEST: maparg('@', 'c') != ''  ==>  0 ... ok
 TEST: maparg('@', 'i') != ''  ==>  0 ... ok
 TEST: maparg('@', 'n') != ''  ==>  1 ... ok
