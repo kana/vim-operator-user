@@ -41,13 +41,6 @@ endfunction
 
 
 
-function! operator#user#load()  "{{{2
-  runtime! plugin/operator/user.vim
-endfunction
-
-
-
-
 function! operator#user#_sid_prefix()  "{{{2
   return s:SID_PREFIX()
 endfunction

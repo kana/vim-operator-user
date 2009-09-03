@@ -6,7 +6,7 @@ TEST: maparg(_, 'o') != ''  ==>  0 ... ok
 TEST: maparg(_, 'v') != ''  ==>  1 ... ok
 Result: 5 / 5
 
-===== DefineOperator _  TestOperatorFunction1
+===== "operator#user#define(): Typical usage"
 TEST: maparg('_', 'c') != ''  ==>  0 ... ok
 TEST: maparg('_', 'i') != ''  ==>  0 ... ok
 TEST: maparg('_', 'n') != ''  ==>  1 ... ok
@@ -20,13 +20,13 @@ TEST: getline('.', line('.')+4)  ==>  ['a', 'i', 'l', 'r', 'v'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'e', 'g', 'n', 's'] ... ok
 Result: 11 / 11
 
-===== DefineOperator _  TestOperatorFunction2     call TestOperatorFunction2Set('yank')
+===== "operator#user#define(): With {extra}s"
 TEST: @0  ==>  "a\n" ... ok
 TEST: @0  ==>  "a\nz\nu\n" ... ok
 TEST: @0  ==>  "a\nz\nu\ns\na\n" ... ok
 Result: 3 / 3
 
-===== DefineOperator @ s:test_operator_function_3
+===== "operator#user#define(): With script-local function"
 TEST: maparg('@', 'c') != ''  ==>  0 ... ok
 TEST: maparg('@', 'i') != ''  ==>  0 ... ok
 TEST: maparg('@', 'n') != ''  ==>  1 ... ok
