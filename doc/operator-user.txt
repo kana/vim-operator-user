@@ -28,7 +28,6 @@ CONTENTS					*operator-user-contents*
 
 Introduction		|operator-user-introduction|
 Interface		|operator-user-interface|
-  Commands		  |operator-user-commands|
   Functions		  |operator-user-functions|
 Examples		|operator-user-examples|
 Bugs			|operator-user-bugs|
@@ -40,15 +39,15 @@ Changelog		|operator-user-changelog|
 ==============================================================================
 INTRODUCTION					*operator-user-introduction*
 
-*operator-user* is a Vim plugin to provide an easy way to define your own
-|operator|.  Though there are several pitfalls to define operators, you don't
-have to take care of them with |:DefineOperator| and/or
-|operator#user#define()| which are provided by this plugin.
+*operator-user* is a Vim library plugin to provide an easy way to define your
+own |operator|.  Though there are several pitfalls to define operators, you
+don't have to take care of them with |operator#user#define()| which are
+provided by this library plugin.
 
 For example, the following setting defines operator "_" to adjust the height
 of the current window to the same as the target range:
 >
-	DefineOperator _  Op_adjust_window_height
+	call operator#user#define('_', 'Op_adjust_window_height')
 	function! Op_adjust_window_height(motion_wiseness)
 	  execute (line("']") - line("'[") + 1) 'wincmd' '_'
 	  normal! `[zt
@@ -80,34 +79,37 @@ http://kana.github.com/config/vim/operator-user.html
 INTERFACE					*operator-user-interface*
 
 ------------------------------------------------------------------------------
-COMMANDS					*operator-user-commands*
-
-:DefineOperator {lhs}  {function} [{extra}]	*:DefineOperator*
-			Define a new operator.
-			- {lhs} is a key sequence which is mapped to something
-			  to execute the operator.  This key mapping is
-			  defined in Normal mode and Visual mode.  {lhs} is
-			  also mapped to |g@| in Operator-pending mode to
-			  operate linewise like |cc|, |dd|, etc.
-			- {function} is the name of a function which is called
-			  whenever the operator is executed.
-			- {extra} is an arbitrary key sequence which is
-			  executed after setting 'operatorfunc' and before
-			  starting Operator-pending mode.
-
-
-------------------------------------------------------------------------------
 FUNCTIONS					*operator-user-functions*
 
 						*operator#user#define()*
-operator#user#define({lhs}, {function}, [{extra}])
-			Function version of |:DefineOperator|.
+operator#user#define({lhs}, {function}, [{extra} ...])
+			Define a new operator.
 
-operator#user#load()				*operator#user#load()*
-			Load this plugin if it is not loaded yet.  Otherwise,
-			does nothing.  Call this function to ensure that
-			|operator-user-commands| are defined before you use one
-			of them, especially, in your |vimrc|.
+			{lhs}		(string)
+				A key sequence to execute the operator.
+
+				In Normal mode and Visual mode, {lhs} is
+				mapped to a magic stuff to execute the
+				operator.
+
+				In Operator-pending mode, {lhs} is mapped to
+				|g@| to operate linewise like |cc|, |dd|, etc.
+
+			{function}	(string)
+				The name of a function to be called whenever
+				the operator is executed.
+
+			{extra}		(string)
+				An arbitrary Ex command to be executed after
+				setting 'operatorfunc' and before executing
+				the operator.
+
+				If multiple {extra}s are given, they are
+				joined together into one string.  A whitespace
+				is put in between them.  Then the string will
+				be used instead.
+
+				See also |operator-user-examples| how to use.
 
 
 
@@ -117,21 +119,21 @@ EXAMPLES					*operator-user-examples*
 
 (A) The following setting defines operator-version of |:right|:
 >
-	DefineOperator L  Op_command_right
+	call operator#user#define('L', 'Op_command_right')
 	function! Op_command_right(motion_wiseness)
 	  '[,']right
 	endfunction
 <
 
-(B) The following setting defines a generic version of (A).  This is also an
-example to use {extra} of |:DefineOperator|:
+(B) The following setting defines a generic version of (A).
+    This is also an example to use {extra} for |operator#user#define()|:
 >
-	DefineOperator H  Op_command
-	\              call Set_op_command('left')
-	DefineOperator L  Op_command
-	\              call Set_op_command('right')
-	DefineOperator M  Op_command
-	\              call Set_op_command('center')
+	call operator#user#define('H', 'Op_command',
+	\                         'call Set_op_command("left")')
+	call operator#user#define('L', 'Op_command',
+	\                         'call Set_op_command("right")')
+	call operator#user#define('M', 'Op_command',
+	\                         'call Set_op_command("center")')
 
 	let s:op_command_command = ''
 
@@ -150,9 +152,9 @@ example to use {extra} of |:DefineOperator|:
 ==============================================================================
 BUGS						*operator-user-bugs*
 
-- |:DefineOperator| defines a key mapping "{lhs} to |g@|" in
-  Operator-pending mode to select text linewise like |cc|, |dd|, etc.
-  But this behavior may be harmful in some cases:
+- |operator#user#define()| defines a key mapping "{lhs} to |g@|" in
+  Operator-pending mode to select text linewise like |cc|, |dd|, etc.  But
+  this behavior may be harmful in some cases:
 
   (a) If you define two operators "A" and "B", you can operate the cursor line
   with "AA" and "BB".  But you can ALSO operate the cursor line with "AB" and
@@ -161,12 +163,12 @@ BUGS						*operator-user-bugs*
   binding.
 
   (b) If you already define {lhs} to something in Operator-pending mode,
-  :DefineOperator always overrides the key mapping.
+  operator#user#define() always overrides the key mapping.
 
   To avoid these problems, define "named" key sequences first, then map
   something that you want to type to them.  For example:
 >
-	DefineOperator <Plug>(operator-A)  OperatorFunctionA
+	call operator#user#define('<Plug>(operator-A)', 'OperatorFunctionA')
 	nmap A  <Plug>(operator-A)
 	vmap A  <Plug>(operator-A)
 <
@@ -181,11 +183,14 @@ BUGS						*operator-user-bugs*
 ==============================================================================
 CHANGELOG					*operator-user-changelog*
 
-0.0.1	2009-07-18T04:41:22+09:00
+0.0.2	2009-09-04T05:58:28+09:00	       *operator-user-changelog-0.0.2*
+	- Remove :DefineOperator.  It's useless as a part of this library.
+
+0.0.1	2009-07-18T04:41:22+09:00	       *operator-user-changelog-0.0.1*
 	- Rename as "operator-user".  The old name "myoperator" is not good
 	  for further works.
 
-0.0.0	2009-06-26T02:51:29+09:00
+0.0.0	2009-06-26T02:51:29+09:00	       *operator-user-changelog-0.0.0*
 	- Initial version.
 
 
