@@ -33,7 +33,7 @@ function! operator#user#define(operator_keyseq, function_name, ...)  "{{{2
   \               ':<C-u>set operatorfunc=%s%s<Return><SID>(count)g@'),
   \              a:operator_keyseq, a:function_name, additional_settings)
   execute printf(('vnoremap <script> <silent> %s ' .
-  \               '<Esc>:<C-u>set operatorfunc=%s%s<Return>gv<SID>(count)g@'),
+  \               '<Esc>:<C-u>set operatorfunc=%s%s<Return>gvg@'),
   \              a:operator_keyseq, a:function_name, additional_settings)
   execute printf('onoremap %s  g@', a:operator_keyseq)
 endfunction
@@ -60,7 +60,9 @@ endfunction
 
 
 nnoremap <expr> <SID>(count)  v:count == v:count1 ? v:count : ''
-vnoremap <expr> <SID>(count)  v:count == v:count1 ? v:count : ''
+
+" FIXME: It's hard for user-defined operator to handle count in Visual mode.
+" vnoremap <expr> <SID>(count)  v:count == v:count1 ? v:count : ''
 
 
 

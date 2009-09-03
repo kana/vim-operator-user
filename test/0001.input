@@ -21,7 +21,7 @@ function s:test_internal_key_mappings_0001()  "{{{1
   Assert maparg(_, 'i') != '' ==> 0
   Assert maparg(_, 'n') != '' ==> 1
   Assert maparg(_, 'o') != '' ==> 0
-  Assert maparg(_, 'v') != '' ==> 1
+  Assert maparg(_, 'v') != '' ==> 0
 endfunction
 
 
@@ -154,6 +154,29 @@ function s:test_operator_user_define_0003()  "{{{1
   -4
   normal 5@@
   Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
+endfunction
+
+
+
+
+function s:test_operator_user_define_0004()  "{{{1
+  Title "operator#user#define(): count in Visual mode"
+
+  function! TestOperatorFunction4(motion_wiseness)
+    normal! `[v`]gU
+  endfunction
+  call operator#user#define('_', 'TestOperatorFunction4')
+
+  silent put =['a', 'g', 'n', 'e', 's']
+  -4
+  normal v3j_
+  Assert getline('.', line('.')+4) ==> ['A', 'G', 'N', 'E', 's']
+
+    " FIXME: count in Visual mode is not supported.
+  silent put =['a', 'g', 'n', 'e', 's']
+  -4
+  normal v3_
+  Assert getline('.', line('.')+4) ==> ['A', 'g', 'n', 'e', 's']
 endfunction
 
 

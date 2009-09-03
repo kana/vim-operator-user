@@ -178,11 +178,19 @@ BUGS						*operator-user-bugs*
     ``Vim: Plugins should provide "named" key sequences to customize hotkeys,
     not variables'' <http://whileimautomaton.net/2008/09/27/02/27/35/diary>
 
+						*operator-user-bugs-B*
+(B) In Visual mode, any operator defined by |operator#user#define()| cannot
+    handle |count| correctly.  It acts as if count is not given.
+
+
+
+
 ==============================================================================
 CHANGELOG					*operator-user-changelog*
 
 0.0.2	2009-09-04T05:58:28+09:00	       *operator-user-changelog-0.0.2*
 	- Remove :DefineOperator.  It's useless as a part of this library.
+	- Add a note on a bug.  See |operator-user-bugs-B| for the details.
 
 0.0.1	2009-07-18T04:41:22+09:00	       *operator-user-changelog-0.0.1*
 	- Rename as "operator-user".  The old name "myoperator" is not good
