@@ -51,5 +51,16 @@ TEST: getline('.', line('.')+4)  ==>  ['A', 'G', 'N', 'E', 's'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['A', 'g', 'n', 'e', 's'] ... ok
 Result: 2 / 2
 
+===== "operator#user#define_ex_command(): Typical usage"
+TEST: getline('.', line('.')+1)  ==>  ['a m a n', 'e'] ... ok
+TEST: getline('.', line('.')+1)  ==>  ['a v r i', 'l'] ... ok
+TEST: getline('.', line('.')+2)  ==>  ['a g n', 'e', 's'] ... ok
+TEST: getline('.', line('.')+1)  ==>  ['a m a n', 'e'] ... ok
+TEST: getline('.', line('.')+1)  ==>  ['a g n e', 's'] ... FAILED
+  Actual value: ['a', 'g']
+  Expected value: ['a g n e', 's']
+TEST: getline('.', line('.')+4)  ==>  ['a', 'g', 'n', 'e', 's'] ... ok
+Result: 5 / 6
+
 ===== Total
-Result: 32 / 34
+Result: 37 / 40

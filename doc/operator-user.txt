@@ -111,6 +111,23 @@ operator#user#define({lhs}, {function}, [{extra} ...])
 
 				See also |operator-user-examples| how to use.
 
+					   *operator#user#define_ex_command()*
+operator#user#define_ex_command({lhs}, {ex-command})
+			Define an operator-version of {ex-command}.
+
+			{lhs}		(string)
+				Same as the one for |operator#user#define()|.
+
+			{ex-command}	(string)
+				An Ex command to be executed whenever the
+				operator is executed.  Range must not be
+				included.
+
+				This argument is used as follows:
+>
+					'[,']{ex-command}
+<
+
 
 
 
@@ -144,6 +161,14 @@ EXAMPLES					*operator-user-examples*
 	function! Op_command(motion_wiseness)
 	  execute "'[,']" s:op_command_command
 	endfunction
+<
+
+(C) With |operator#user#define_ex_command()|, the example (B) can be
+    simplified as follows:
+>
+	call operator#user#define_ex_command('H', 'left')
+	call operator#user#define_ex_command('L', 'right')
+	call operator#user#define_ex_command('M', 'center')
 <
 
 
@@ -191,6 +216,7 @@ CHANGELOG					*operator-user-changelog*
 0.0.2	2009-09-04T05:58:28+09:00	       *operator-user-changelog-0.0.2*
 	- Remove :DefineOperator.  It's useless as a part of this library.
 	- Add a note on a bug.  See |operator-user-bugs-B| for the details.
+	- Add |operator#user#define_ex_command()|.
 
 0.0.1	2009-07-18T04:41:22+09:00	       *operator-user-changelog-0.0.1*
 	- Rename as "operator-user".  The old name "myoperator" is not good

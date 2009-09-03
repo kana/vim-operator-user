@@ -182,6 +182,49 @@ endfunction
 
 
 
+function s:test_operator_user_define_0005()  "{{{1
+  Title "operator#user#define_ex_command(): Typical usage"
+
+  call operator#user#define_ex_command('_', 'join')
+
+  silent put =['a', 'm', 'a', 'n', 'e']
+  -4
+  normal _3j
+  Assert getline('.', line('.')+1) ==> ['a m a n', 'e']
+
+  silent put =['a', 'v', 'r', 'i', 'l']
+  -4
+  normal v3j_
+  Assert getline('.', line('.')+1) ==> ['a v r i', 'l']
+
+  silent put =['a', 'g', 'n', 'e', 's']
+  -4
+  normal _3_
+  Assert getline('.', line('.')+2) ==> ['a g n', 'e', 's']
+
+  silent put =['a', 'm', 'a', 'n', 'e']
+  -4
+  normal v3j_
+  Assert getline('.', line('.')+1) ==> ['a m a n', 'e']
+
+    " FIXME: This one works as I expect if '5__' is typed interactively,
+    "        but it doesn't work via :normal and it selects only the current
+    "        line.  Why?
+  silent put =['a', 'g', 'n', 'e', 's']
+  -4
+  normal 4__
+  Assert getline('.', line('.')+1) ==> ['a g n e', 's']
+
+    " FIXME: count in Visual mode is not supported.
+  silent put =['a', 'g', 'n', 'e', 's']
+  -4
+  normal v3_
+  Assert getline('.', line('.')+4) ==> ['a', 'g', 'n', 'e', 's']
+endfunction
+
+
+
+
 Test  "{{{1
 
 " __END__

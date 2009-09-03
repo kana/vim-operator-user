@@ -41,6 +41,31 @@ endfunction
 
 
 
+function! operator#user#define_ex_command(operator_keyseq, ex_command)  "{{{2
+  return operator#user#define(
+  \        a:operator_keyseq,
+  \        'operator#user#_do_ex_command',
+  \        'call operator#user#_set_ex_command(''' . a:ex_command . ''')'
+  \      )
+endfunction
+
+
+
+
+function! operator#user#_do_ex_command(motion_wiseness)  "{{{2
+  execute "'[,']" s:ex_command
+endfunction
+
+
+
+
+function! operator#user#_set_ex_command(ex_command)  "{{{2
+  let s:ex_command = a:ex_command
+endfunction
+
+
+
+
 function! operator#user#_sid_prefix()  "{{{2
   return s:SID_PREFIX()
 endfunction
@@ -63,6 +88,10 @@ nnoremap <expr> <SID>(count)  v:count == v:count1 ? v:count : ''
 
 " FIXME: It's hard for user-defined operator to handle count in Visual mode.
 " vnoremap <expr> <SID>(count)  v:count == v:count1 ? v:count : ''
+
+
+" See operator#user#_do_ex_command() and operator#user#_set_ex_command().
+" let s:ex_command = ''
 
 
 
