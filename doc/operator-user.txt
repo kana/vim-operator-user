@@ -152,33 +152,31 @@ EXAMPLES					*operator-user-examples*
 ==============================================================================
 BUGS						*operator-user-bugs*
 
-- |operator#user#define()| defines a key mapping "{lhs} to |g@|" in
-  Operator-pending mode to select text linewise like |cc|, |dd|, etc.  But
-  this behavior may be harmful in some cases:
+						*operator-user-bugs-A*
+(A) |operator#user#define()| defines a key mapping "{lhs} to |g@|" in
+    Operator-pending mode to select text linewise like |cc|, |dd|, etc.
+    But this behavior may be harmful in some cases:
 
-  (a) If you define two operators "A" and "B", you can operate the cursor line
-  with "AA" and "BB".  But you can ALSO operate the cursor line with "AB" and
-  "BA".  These "{operator-A}{operator-B}" key combinations are not expected to
-  work as if "{operator-A}{operator-A}", because there is no such default key
-  binding.
+    (a) If you define two operators "A" and "B", you can operate the cursor
+	line with "AA" and "BB".  But you can ALSO operate the cursor line
+	with "AB" and "BA".  These "{operator-A}{operator-B}" key combinations
+	are not expected to work as if "{operator-A}{operator-A}", because
+	there is no such default key binding.
 
-  (b) If you already define {lhs} to something in Operator-pending mode,
-  operator#user#define() always overrides the key mapping.
+    (b) If you already define {lhs} to something in Operator-pending mode,
+        |operator#user#define()| always overrides the key mapping.
 
-  To avoid these problems, define "named" key sequences first, then map
-  something that you want to type to them.  For example:
+    To avoid these problems, define "named" key sequences first, then map
+    something that you want to type to them.  For example:
 >
 	call operator#user#define('<Plug>(operator-A)', 'OperatorFunctionA')
 	nmap A  <Plug>(operator-A)
 	vmap A  <Plug>(operator-A)
 <
-  See also the following article for the details.  The article is also useful
-  if you want to write your own plulgin:
-  ``Vim: Plugins should provide "named" key sequences to customize hotkeys,
-  not variables'' <http://whileimautomaton.net/2008/09/27/02/27/35/diary>
-
-
-
+    See also the following article for the details.
+    The article is also useful if you want to write your own plulgin:
+    ``Vim: Plugins should provide "named" key sequences to customize hotkeys,
+    not variables'' <http://whileimautomaton.net/2008/09/27/02/27/35/diary>
 
 ==============================================================================
 CHANGELOG					*operator-user-changelog*
