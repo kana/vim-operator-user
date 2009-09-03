@@ -214,9 +214,9 @@ BUGS						*operator-user-bugs*
 CHANGELOG					*operator-user-changelog*
 
 0.0.2	2009-09-04T05:58:28+09:00	       *operator-user-changelog-0.0.2*
-	- Remove :DefineOperator.  It's useless as a part of this library.
-	- Add a note on a bug.  See |operator-user-bugs-B| for the details.
 	- Add |operator#user#define_ex_command()|.
+	- Add a note on a bug.  See |operator-user-bugs-B| for the details.
+	- Remove :DefineOperator.  It's useless as a part of this library.
 
 0.0.1	2009-07-18T04:41:22+09:00	       *operator-user-changelog-0.0.1*
 	- Rename as "operator-user".  The old name "myoperator" is not good
