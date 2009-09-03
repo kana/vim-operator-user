@@ -18,7 +18,10 @@ TEST: maparg('_', 'v') =~# '\<TestOperatorFunction1\>'  ==>  1 ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'a', 'e', 'm', 'n'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'i', 'l', 'r', 'v'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'e', 'g', 'n', 's'] ... ok
-Result: 11 / 11
+TEST: getline('.', line('.')+4)  ==>  ['a', 'e', 'g', 'n', 's'] ... FAILED
+  Actual value: ['a', 'g', 'n', 'e', 's']
+  Expected value: ['a', 'e', 'g', 'n', 's']
+Result: 11 / 12
 
 ===== "operator#user#define(): With {extra}s"
 TEST: @0  ==>  "a\n" ... ok
@@ -38,7 +41,10 @@ TEST: maparg('@', 'v') =~# 'test_operator_function_3\>'  ==>  1 ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'a', 'e', 'm', 'n'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'i', 'l', 'r', 'v'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'e', 'g', 'n', 's'] ... ok
-Result: 11 / 11
+TEST: getline('.', line('.')+4)  ==>  ['a', 'e', 'g', 'n', 's'] ... FAILED
+  Actual value: ['a', 'g', 'n', 'e', 's']
+  Expected value: ['a', 'e', 'g', 'n', 's']
+Result: 11 / 12
 
 ===== Total
-Result: 30 / 30
+Result: 30 / 32

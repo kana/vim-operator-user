@@ -63,13 +63,13 @@ function s:test_operator_user_define_0001()  "{{{1
   normal _5_
   Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
 
-  " FIXME: This one works as I expect if '5__' is typed interactively,
-  "        but it doesn't work via :normal and it selects only the current
-  "        line.  Why?
-  " silent put =['a', 'g', 'n', 'e', 's']
-  " -4
-  " normal 5__
-  " Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
+    " FIXME: This one works as I expect if '5__' is typed interactively,
+    "        but it doesn't work via :normal and it selects only the current
+    "        line.  Why?
+  silent put =['a', 'g', 'n', 'e', 's']
+  -4
+  normal 5__
+  Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
 endfunction
 
 
@@ -147,13 +147,13 @@ function s:test_operator_user_define_0003()  "{{{1
   normal @5@
   Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
 
-  " FIXME: This one works as I expect if '5@@' is typed interactively,
-  "        but it doesn't work via :normal and it selects only the current
-  "        line.  Why?
-  " silent put =['a', 'g', 'n', 'e', 's']
-  " -4
-  " normal 5@@
-  " Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
+    " FIXME: This one works as I expect if '5@@' is typed interactively,
+    "        but it doesn't work via :normal and it selects only the current
+    "        line.  Why?
+  silent put =['a', 'g', 'n', 'e', 's']
+  -4
+  normal 5@@
+  Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
 endfunction
 
 
