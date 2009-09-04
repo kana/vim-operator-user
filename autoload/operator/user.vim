@@ -22,7 +22,26 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 " Interface  "{{{1
-function! operator#user#define(operator_keyseq, function_name, ...)  "{{{2
+function! operator#user#define(name, function_name, ...)  "{{{2
+  return call('operator#user#_define',
+  \           ['<Plug>(operator-' . a:name . ')', a:function_name] + a:000)
+endfunction
+
+
+
+
+function! operator#user#define_ex_command(name, ex_command)  "{{{2
+  return operator#user#define(
+  \        a:name,
+  \        'operator#user#_do_ex_command',
+  \        'call operator#user#_set_ex_command(''' . a:ex_command . ''')'
+  \      )
+endfunction
+
+
+
+
+function! operator#user#_define(operator_keyseq, function_name, ...)  "{{{2
   if 0 < a:0
     let additional_settings = '\|' . join(a:000)
   else
@@ -36,17 +55,6 @@ function! operator#user#define(operator_keyseq, function_name, ...)  "{{{2
   \               '<Esc>:<C-u>set operatorfunc=%s%s<Return>gvg@'),
   \              a:operator_keyseq, a:function_name, additional_settings)
   execute printf('onoremap %s  g@', a:operator_keyseq)
-endfunction
-
-
-
-
-function! operator#user#define_ex_command(operator_keyseq, ex_command)  "{{{2
-  return operator#user#define(
-  \        a:operator_keyseq,
-  \        'operator#user#_do_ex_command',
-  \        'call operator#user#_set_ex_command(''' . a:ex_command . ''')'
-  \      )
 endfunction
 
 

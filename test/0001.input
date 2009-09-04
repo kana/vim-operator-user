@@ -35,18 +35,31 @@ function s:test_operator_user_define_0001()  "{{{1
     '[,']sort
   endfunction
 
-  noremap _  xxx
-  call operator#user#define('_', 'TestOperatorFunction1')
+  map _ <Plug>(operator-sort)
+  noremap <Plug>(operator-sort)  xxx
+  call operator#user#define('sort', 'TestOperatorFunction1')
+
+  Assert maparg('<Plug>(operator-sort)', 'c') != '' ==> 0
+  Assert maparg('<Plug>(operator-sort)', 'i') != '' ==> 0
+  Assert maparg('<Plug>(operator-sort)', 'n') != '' ==> 1
+  Assert maparg('<Plug>(operator-sort)', 'o') != '' ==> 1
+  Assert maparg('<Plug>(operator-sort)', 'v') != '' ==> 1
+  Assert maparg('<Plug>(operator-sort)', 'n')
+  \      =~# '\<TestOperatorFunction1\>'
+  \      ==> 1
+  Assert maparg('<Plug>(operator-sort)', 'o') ==> 'g@'
+  Assert maparg('<Plug>(operator-sort)', 'v')
+  \      =~# '\<TestOperatorFunction1\>'
+  \      ==> 1
 
   Assert maparg('_', 'c') != '' ==> 0
   Assert maparg('_', 'i') != '' ==> 0
   Assert maparg('_', 'n') != '' ==> 1
   Assert maparg('_', 'o') != '' ==> 1
   Assert maparg('_', 'v') != '' ==> 1
-
-  Assert maparg('_', 'n') =~# '\<TestOperatorFunction1\>' ==> 1
-  Assert maparg('_', 'o') == 'g@' ==> 1
-  Assert maparg('_', 'v') =~# '\<TestOperatorFunction1\>' ==> 1
+  Assert maparg('_', 'n') ==> '<Plug>(operator-sort)'
+  Assert maparg('_', 'o') ==> '<Plug>(operator-sort)'
+  Assert maparg('_', 'v') ==> '<Plug>(operator-sort)'
 
   silent put =['a', 'm', 'a', 'n', 'e']
   -4
@@ -77,7 +90,8 @@ endfunction
 
 function s:test_operator_user_define_0002()  "{{{1
   Title "operator#user#define(): With {extra}s"
-  call operator#user#define('_', 'TestOperatorFunction2',
+  map _  <Plug>(operator-yank)
+  call operator#user#define('yank', 'TestOperatorFunction2',
   \                         'call', 'TestOperatorFunction2Set("yank")')
   function! TestOperatorFunction2Set(command)
     let s:command = a:command
@@ -114,21 +128,34 @@ function s:test_operator_user_define_0003()  "{{{1
   " But this test is passed unexpectedly, because s: in 'operatorfunc' is
   " treated as the context of this test script.
 
-  call operator#user#define('@', 's:test_operator_function_3')
+  map @  <Plug>(operator-sort)
+  call operator#user#define('sort', 's:test_operator_function_3')
   function! s:test_operator_function_3(motion_wiseness)
     " echo getpos("'[") getpos("']")
     '[,']sort
   endfunction
+
+  Assert maparg('<Plug>(operator-sort)', 'c') != '' ==> 0
+  Assert maparg('<Plug>(operator-sort)', 'i') != '' ==> 0
+  Assert maparg('<Plug>(operator-sort)', 'n') != '' ==> 1
+  Assert maparg('<Plug>(operator-sort)', 'o') != '' ==> 1
+  Assert maparg('<Plug>(operator-sort)', 'v') != '' ==> 1
+  Assert maparg('<Plug>(operator-sort)', 'n')
+  \      =~# '\<test_operator_function_3\>'
+  \      ==> 1
+  Assert maparg('<Plug>(operator-sort)', 'o') ==> 'g@'
+  Assert maparg('<Plug>(operator-sort)', 'v')
+  \      =~# '\<test_operator_function_3\>'
+  \      ==> 1
 
   Assert maparg('@', 'c') != '' ==> 0
   Assert maparg('@', 'i') != '' ==> 0
   Assert maparg('@', 'n') != '' ==> 1
   Assert maparg('@', 'o') != '' ==> 1
   Assert maparg('@', 'v') != '' ==> 1
-
-  Assert maparg('@', 'n') =~# 'test_operator_function_3\>' ==> 1
-  Assert maparg('@', 'o') == 'g@' ==> 1
-  Assert maparg('@', 'v') =~# 'test_operator_function_3\>' ==> 1
+  Assert maparg('@', 'n') ==> '<Plug>(operator-sort)'
+  Assert maparg('@', 'o') ==> '<Plug>(operator-sort)'
+  Assert maparg('@', 'v') ==> '<Plug>(operator-sort)'
 
   silent % delete _
 
@@ -165,7 +192,8 @@ function s:test_operator_user_define_0004()  "{{{1
   function! TestOperatorFunction4(motion_wiseness)
     normal! `[v`]gU
   endfunction
-  call operator#user#define('_', 'TestOperatorFunction4')
+  map _  <Plug>(operator-gU)
+  call operator#user#define('gU', 'TestOperatorFunction4')
 
   silent put =['a', 'g', 'n', 'e', 's']
   -4
@@ -185,7 +213,8 @@ endfunction
 function s:test_operator_user_define_0005()  "{{{1
   Title "operator#user#define_ex_command(): Typical usage"
 
-  call operator#user#define_ex_command('_', 'join')
+  map _  <Plug>(operator-join)
+  call operator#user#define_ex_command('join', 'join')
 
   silent put =['a', 'm', 'a', 'n', 'e']
   -4

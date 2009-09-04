@@ -44,10 +44,11 @@ own |operator|.  Though there are several pitfalls to define operators, you
 don't have to take care of them with |operator#user#define()| which are
 provided by this library plugin.
 
-For example, the following setting defines operator "_" to adjust the height
-of the current window to the same as the target range:
+For example, the following code defines operator "_" to adjust the height of
+the current window to the same as the target range:
 >
-	call operator#user#define('_', 'Op_adjust_window_height')
+	map _  <Plug>(operator-adjust)
+	call operator#user#define('adjust', 'Op_adjust_window_height')
 	function! Op_adjust_window_height(motion_wiseness)
 	  execute (line("']") - line("'[") + 1) 'wincmd' '_'
 	  normal! `[zt
@@ -82,18 +83,19 @@ INTERFACE					*operator-user-interface*
 FUNCTIONS					*operator-user-functions*
 
 						*operator#user#define()*
-operator#user#define({lhs}, {function}, [{extra} ...])
+operator#user#define({name}, {function}, [{extra} ...])
 			Define a new operator.
 
-			{lhs}		(string)
-				A key sequence to execute the operator.
+			{name}		(string)
+				The name of the operator to be defined.
 
-				In Normal mode and Visual mode, {lhs} is
-				mapped to a magic stuff to execute the
-				operator.
+				In Normal mode and Visual mode,
+				<Plug>(operator-{name}) is mapped to a magic
+				stuff to execute the operator.
 
-				In Operator-pending mode, {lhs} is mapped to
-				|g@| to operate linewise like |cc|, |dd|, etc.
+				In Operator-pending mode,
+				<Plug>(operator-{name}) is mapped to |g@| to
+				operate linewise like |cc|, |dd|, etc.
 
 			{function}	(string)
 				The name of a function to be called whenever
@@ -112,10 +114,10 @@ operator#user#define({lhs}, {function}, [{extra} ...])
 				See also |operator-user-examples| how to use.
 
 					   *operator#user#define_ex_command()*
-operator#user#define_ex_command({lhs}, {ex-command})
+operator#user#define_ex_command({name}, {ex-command})
 			Define an operator-version of {ex-command}.
 
-			{lhs}		(string)
+			{name}		(string)
 				Same as the one for |operator#user#define()|.
 
 			{ex-command}	(string)
@@ -134,9 +136,11 @@ operator#user#define_ex_command({lhs}, {ex-command})
 ==============================================================================
 EXAMPLES					*operator-user-examples*
 
-(A) The following setting defines operator-version of |:right|:
+(A) The following setting defines operator-version of |:right|, and map "L" to
+execute the operator:
 >
-	call operator#user#define('L', 'Op_command_right')
+	map L  <Plug>(operator-align-right)
+	call operator#user#define('align-right', 'Op_command_right')
 	function! Op_command_right(motion_wiseness)
 	  '[,']right
 	endfunction
@@ -145,11 +149,15 @@ EXAMPLES					*operator-user-examples*
 (B) The following setting defines a generic version of (A).
     This is also an example to use {extra} for |operator#user#define()|:
 >
-	call operator#user#define('H', 'Op_command',
+	map H  <Plug>(operator-align-left)
+	map L  <Plug>(operator-align-right)
+	map M  <Plug>(operator-align-center)
+
+	call operator#user#define('align-left', 'Op_command',
 	\                         'call Set_op_command("left")')
-	call operator#user#define('L', 'Op_command',
+	call operator#user#define('align-right', 'Op_command',
 	\                         'call Set_op_command("right")')
-	call operator#user#define('M', 'Op_command',
+	call operator#user#define('align-center', 'Op_command',
 	\                         'call Set_op_command("center")')
 
 	let s:op_command_command = ''
@@ -166,9 +174,13 @@ EXAMPLES					*operator-user-examples*
 (C) With |operator#user#define_ex_command()|, the example (B) can be
     simplified as follows:
 >
-	call operator#user#define_ex_command('H', 'left')
-	call operator#user#define_ex_command('L', 'right')
-	call operator#user#define_ex_command('M', 'center')
+	map H  <Plug>(operator-align-left)
+	map L  <Plug>(operator-align-right)
+	map M  <Plug>(operator-align-center)
+
+	call operator#user#define_ex_command('align-left', 'left')
+	call operator#user#define_ex_command('align-right', 'right')
+	call operator#user#define_ex_command('align-center', 'center')
 <
 
 
@@ -178,40 +190,51 @@ EXAMPLES					*operator-user-examples*
 BUGS						*operator-user-bugs*
 
 						*operator-user-bugs-A*
-(A) |operator#user#define()| defines a key mapping "{lhs} to |g@|" in
-    Operator-pending mode to select text linewise like |cc|, |dd|, etc.
-    But this behavior may be harmful in some cases:
+(A) |operator#user#define()| defines a key mapping "<Plug>(operator-{name}) to
+    |g@|" in Operator-pending mode to select text linewise like |cc|, |dd|,
+    etc.  But this behavior may be harmful in the following sense:
 
-    (a) If you define two operators "A" and "B", you can operate the cursor
-	line with "AA" and "BB".  But you can ALSO operate the cursor line
-	with "AB" and "BA".  These "{operator-A}{operator-B}" key combinations
-	are not expected to work as if "{operator-A}{operator-A}", because
-	there is no such default key binding.
-
-    (b) If you already define {lhs} to something in Operator-pending mode,
-        |operator#user#define()| always overrides the key mapping.
-
-    To avoid these problems, define "named" key sequences first, then map
-    something that you want to type to them.  For example:
->
-	call operator#user#define('<Plug>(operator-A)', 'OperatorFunctionA')
-	nmap A  <Plug>(operator-A)
-	vmap A  <Plug>(operator-A)
-<
-    See also the following article for the details.
-    The article is also useful if you want to write your own plulgin:
-    ``Vim: Plugins should provide "named" key sequences to customize hotkeys,
-    not variables'' <http://whileimautomaton.net/2008/09/27/02/27/35/diary>
+    If you define two operators "A" and "B", you can operate the cursor line
+    with "AA" and "BB".  But you can ALSO operate the cursor line with "AB"
+    and "BA".  These "{operator-A}{operator-B}" key combinations are not
+    expected to work as if "{operator-A}{operator-A}", because there is no
+    such default key binding.
 
 						*operator-user-bugs-B*
 (B) In Visual mode, any operator defined by |operator#user#define()| cannot
     handle |count| correctly.  It acts as if count is not given.
+
+						*operator-user-bugs-C*
+(C) |operator#user#define()| defines "named" key mappings
+    "<Plug>(operator-{name})" to execute an operator, and you have to define
+    other key mappings to type to execute the operator.  |operator-user|
+    doesn't provide any official way to skip defining "named" key mappings.
+    It is an intentional design.
+
+    See also the following article for the details.
+    The article is also useful if you want to write your own plulgin:
+    ``Vim: Plugins should provide "named" key sequences to customize hotkeys,
+    not variables'' <http://whileimautomaton.net/2008/09/27/02/27/35/diary>
 
 
 
 
 ==============================================================================
 CHANGELOG					*operator-user-changelog*
+
+0.0.3	2009-09-04T20:11:07+09:00	       *operator-user-changelog-0.0.3*
+	Incompatible change:
+	- |operator#user#define()|, |operator#user#define_ex_command()|:
+	  Change the meaning of the first argument:
+
+	  Old versions:
+		  The argument is {lhs} to execute the operator to be defined.
+
+	  New version:
+		  The argument is {name} of the operator to be defined.
+		  {lhs} to execute the operator is "<Plug>(operator-{name})".
+
+	  See also |operator-user-bugs-C| for the details.
 
 0.0.2	2009-09-04T05:58:28+09:00	       *operator-user-changelog-0.0.2*
 	- Add |operator#user#define_ex_command()|.

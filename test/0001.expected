@@ -7,21 +7,29 @@ TEST: maparg(_, 'v') != ''  ==>  0 ... ok
 Result: 5 / 5
 
 ===== "operator#user#define(): Typical usage"
+TEST: maparg('<Plug>(operator-sort)', 'c') != ''  ==>  0 ... ok
+TEST: maparg('<Plug>(operator-sort)', 'i') != ''  ==>  0 ... ok
+TEST: maparg('<Plug>(operator-sort)', 'n') != ''  ==>  1 ... ok
+TEST: maparg('<Plug>(operator-sort)', 'o') != ''  ==>  1 ... ok
+TEST: maparg('<Plug>(operator-sort)', 'v') != ''  ==>  1 ... ok
+TEST: maparg('<Plug>(operator-sort)', 'n')      =~# '\<TestOperatorFunction1\>'       ==>  1 ... ok
+TEST: maparg('<Plug>(operator-sort)', 'o')  ==>  'g@' ... ok
+TEST: maparg('<Plug>(operator-sort)', 'v')      =~# '\<TestOperatorFunction1\>'       ==>  1 ... ok
 TEST: maparg('_', 'c') != ''  ==>  0 ... ok
 TEST: maparg('_', 'i') != ''  ==>  0 ... ok
 TEST: maparg('_', 'n') != ''  ==>  1 ... ok
 TEST: maparg('_', 'o') != ''  ==>  1 ... ok
 TEST: maparg('_', 'v') != ''  ==>  1 ... ok
-TEST: maparg('_', 'n') =~# '\<TestOperatorFunction1\>'  ==>  1 ... ok
-TEST: maparg('_', 'o') == 'g@'  ==>  1 ... ok
-TEST: maparg('_', 'v') =~# '\<TestOperatorFunction1\>'  ==>  1 ... ok
+TEST: maparg('_', 'n')  ==>  '<Plug>(operator-sort)' ... ok
+TEST: maparg('_', 'o')  ==>  '<Plug>(operator-sort)' ... ok
+TEST: maparg('_', 'v')  ==>  '<Plug>(operator-sort)' ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'a', 'e', 'm', 'n'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'i', 'l', 'r', 'v'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'e', 'g', 'n', 's'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'e', 'g', 'n', 's'] ... FAILED
   Actual value: ['a', 'g', 'n', 'e', 's']
   Expected value: ['a', 'e', 'g', 'n', 's']
-Result: 11 / 12
+Result: 19 / 20
 
 ===== "operator#user#define(): With {extra}s"
 TEST: @0  ==>  "a\n" ... ok
@@ -30,21 +38,29 @@ TEST: @0  ==>  "a\nz\nu\ns\na\n" ... ok
 Result: 3 / 3
 
 ===== "operator#user#define(): With script-local function"
+TEST: maparg('<Plug>(operator-sort)', 'c') != ''  ==>  0 ... ok
+TEST: maparg('<Plug>(operator-sort)', 'i') != ''  ==>  0 ... ok
+TEST: maparg('<Plug>(operator-sort)', 'n') != ''  ==>  1 ... ok
+TEST: maparg('<Plug>(operator-sort)', 'o') != ''  ==>  1 ... ok
+TEST: maparg('<Plug>(operator-sort)', 'v') != ''  ==>  1 ... ok
+TEST: maparg('<Plug>(operator-sort)', 'n')      =~# '\<test_operator_function_3\>'       ==>  1 ... ok
+TEST: maparg('<Plug>(operator-sort)', 'o')  ==>  'g@' ... ok
+TEST: maparg('<Plug>(operator-sort)', 'v')      =~# '\<test_operator_function_3\>'       ==>  1 ... ok
 TEST: maparg('@', 'c') != ''  ==>  0 ... ok
 TEST: maparg('@', 'i') != ''  ==>  0 ... ok
 TEST: maparg('@', 'n') != ''  ==>  1 ... ok
 TEST: maparg('@', 'o') != ''  ==>  1 ... ok
 TEST: maparg('@', 'v') != ''  ==>  1 ... ok
-TEST: maparg('@', 'n') =~# 'test_operator_function_3\>'  ==>  1 ... ok
-TEST: maparg('@', 'o') == 'g@'  ==>  1 ... ok
-TEST: maparg('@', 'v') =~# 'test_operator_function_3\>'  ==>  1 ... ok
+TEST: maparg('@', 'n')  ==>  '<Plug>(operator-sort)' ... ok
+TEST: maparg('@', 'o')  ==>  '<Plug>(operator-sort)' ... ok
+TEST: maparg('@', 'v')  ==>  '<Plug>(operator-sort)' ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'a', 'e', 'm', 'n'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'i', 'l', 'r', 'v'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'e', 'g', 'n', 's'] ... ok
 TEST: getline('.', line('.')+4)  ==>  ['a', 'e', 'g', 'n', 's'] ... FAILED
   Actual value: ['a', 'g', 'n', 'e', 's']
   Expected value: ['a', 'e', 'g', 'n', 's']
-Result: 11 / 12
+Result: 19 / 20
 
 ===== "operator#user#define(): count in Visual mode"4 lines changed
 TEST: getline('.', line('.')+4)  ==>  ['A', 'G', 'N', 'E', 's'] ... ok
@@ -63,4 +79,4 @@ TEST: getline('.', line('.')+4)  ==>  ['a', 'g', 'n', 'e', 's'] ... ok
 Result: 5 / 6
 
 ===== Total
-Result: 37 / 40
+Result: 53 / 56
