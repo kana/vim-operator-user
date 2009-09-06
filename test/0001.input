@@ -1,18 +1,4 @@
 " Tests for operator-user
-" Set up  "{{{1
-
-function Call(function_name, ...)
-  return call(substitute(a:function_name,'^s:',operator#user#_sid_prefix(),''),
-  \           a:000)
-endfunction
-
-function! s:SID_PREFIX()
-  return matchstr(expand('<sfile>'), '\%(^\|\.\.\)\zs<SNR>\d\+_\zeSID_PREFIX$')
-endfunction
-
-
-
-
 function s:test_internal_key_mappings_0001()  "{{{1
   Title "Check the existence of <SID>(count) in each mode"
 
