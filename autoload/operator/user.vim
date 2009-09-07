@@ -49,11 +49,20 @@ function! operator#user#_define(operator_keyseq, function_name, ...)  "{{{2
   endif
 
   execute printf(('nnoremap <script> <silent> %s ' .
-  \               ':<C-u>set operatorfunc=%s%s<Return><SID>(count)g@'),
-  \              a:operator_keyseq, a:function_name, additional_settings)
+  \               ':<C-u>call operator#user#_set_up(%s)%s<Return>' .
+  \               '<SID>(count)' .
+  \               'g@'),
+  \              a:operator_keyseq,
+  \              string(a:function_name),
+  \              additional_settings)
   execute printf(('vnoremap <script> <silent> %s ' .
-  \               '<Esc>:<C-u>set operatorfunc=%s%s<Return>gvg@'),
-  \              a:operator_keyseq, a:function_name, additional_settings)
+  \               '<Esc>' .
+  \               ':<C-u>call operator#user#_set_up(%s)%s<Return>' .
+  \               'gv' .
+  \               'g@'),
+  \              a:operator_keyseq,
+  \              string(a:function_name),
+  \              additional_settings)
   execute printf('onoremap %s  g@', a:operator_keyseq)
 endfunction
 
@@ -69,6 +78,13 @@ endfunction
 
 function! operator#user#_set_ex_command(ex_command)  "{{{2
   let s:ex_command = a:ex_command
+endfunction
+
+
+
+
+function! operator#user#_set_up(operator_function_name)  "{{{2
+  let &operatorfunc = a:operator_function_name
 endfunction
 
 
