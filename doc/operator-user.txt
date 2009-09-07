@@ -203,7 +203,7 @@ execute the operator:
 						*operator-user-examples-D*
 (D) In 'operatorfunc', we usually have to convert the name of the wise of
 {motion} into the corresponding command to start Visual mode.
-With |operator#user#visual_command_from_wise_name|,
+With |operator#user#visual_command_from_wise_name()|,
 This routine can be written as follows:
 >
 	call operator#user#define('void-change', 'OperatorVoidChange',
