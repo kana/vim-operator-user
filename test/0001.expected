@@ -78,5 +78,18 @@ TEST: getline('.', line('.')+1)  ==>  ['a g n e', 's'] ... FAILED
 TEST: getline('.', line('.')+4)  ==>  ['a', 'g', 'n', 'e', 's'] ... ok
 Result: 5 / 6
 
+===== "register designation for user defined operator"
+TEST: getline('.')  ==>  '"' ... ok
+TEST: getline('.')  ==>  '"' ... ok
+TEST: getline('.')  ==>  'A' ... ok
+TEST: getline('.')  ==>  'x' ... ok
+TEST: getline('.')  ==>  'y' ... ok
+TEST: getline('.')  ==>  '"' ... ok
+TEST: getline('.')  ==>  '"' ... ok
+TEST: getline('.')  ==>  'A' ... ok
+TEST: getline('.')  ==>  'x' ... ok
+TEST: getline('.')  ==>  'y' ... ok
+Result: 10 / 10
+
 ===== Total
-Result: 53 / 56
+Result: 63 / 66

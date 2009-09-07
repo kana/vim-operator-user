@@ -240,6 +240,49 @@ endfunction
 
 
 
+function s:test_operator_user_define_0006()  "{{{1
+  Title "register designation for user defined operator"
+
+  map _  <Plug>(operator-echo)
+  call operator#user#define('echo', 'TestOperatorFunction6')
+  function! TestOperatorFunction6(motion_wise)
+    put =v:register
+  endfunction
+
+  normal __
+  Assert getline('.') ==> '"'
+
+  normal ""_L
+  Assert getline('.') ==> '"'
+
+  normal "A_w
+  Assert getline('.') ==> 'A'
+
+  normal 3"x_k
+  Assert getline('.') ==> 'x'
+
+  normal "y8_G
+  Assert getline('.') ==> 'y'
+
+  normal v_
+  Assert getline('.') ==> '"'
+
+  normal V""_
+  Assert getline('.') ==> '"'
+
+  normal v"A_
+  Assert getline('.') ==> 'A'
+
+  normal V3"x_
+  Assert getline('.') ==> 'x'
+
+  normal v"y8_
+  Assert getline('.') ==> 'y'
+endfunction
+
+
+
+
 Test  "{{{1
 
 " __END__

@@ -226,6 +226,8 @@ CHANGELOG					*operator-user-changelog*
 	- Fix a bug that it rarely fails to select the same text as a given
 	  {motion} in Normal mode.  It is caused by a bug in Vim; |v:count1|
 	  may be 0 in some cases.
+	- Fix a bug that register designation ("a, "b, etc) doesn't work for
+	  user defiend operators.
 
 0.0.3	2009-09-04T20:11:07+09:00	       *operator-user-changelog-0.0.3*
 	Incompatible change:
