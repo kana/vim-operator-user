@@ -41,6 +41,22 @@ endfunction
 
 
 
+function! operator#user#visual_command_from_wise_name(wise_name)  "{{{2
+  if a:wise_name ==# 'char'
+    return 'v'
+  elseif a:wise_name ==# 'line'
+    return 'V'
+  elseif a:wise_name ==# 'block'
+    return "\<C-v>"
+  else
+    echoerr 'operator-user:E1: Invalid wise name:' string(a:wise_name)
+    return 'v'  " fallback
+  endif
+endfunction
+
+
+
+
 
 
 

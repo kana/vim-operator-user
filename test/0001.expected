@@ -91,5 +91,22 @@ TEST: getline('.')  ==>  'x' ... ok
 TEST: getline('.')  ==>  'y' ... ok
 Result: 10 / 10
 
+===== "operator#user#visual_command_from_wise_name()"
+TEST: _  ==>  'v' ... ok
+TEST: v:errmsg  ==>  '' ... ok
+TEST: operator#user#visual_command_from_wise_name('line')  ==>  'V' ... ok
+TEST: v:errmsg  ==>  '' ... ok
+TEST: operator#user#visual_command_from_wise_name('block')  ==>  "\<C-v>" ... ok
+TEST: v:errmsg  ==>  '' ... ok
+TEST: _  ==>  'v' ... ok
+TEST: v:errmsg =~# 'operator-user:E1:' ==>  1 ... ok
+TEST: _  ==>  'v' ... ok
+TEST: v:errmsg =~# 'operator-user:E1:' ==>  1 ... ok
+TEST: _  ==>  'v' ... ok
+TEST: v:errmsg =~# 'operator-user:E1:' ==>  1 ... ok
+TEST: _  ==>  'v' ... ok
+TEST: v:errmsg =~# 'operator-user:E1:' ==>  1 ... ok
+Result: 14 / 14
+
 ===== Total
-Result: 63 / 66
+Result: 77 / 80

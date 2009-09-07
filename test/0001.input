@@ -283,6 +283,51 @@ endfunction
 
 
 
+function s:test_operator_user_define_0007()  "{{{1
+  Title "operator#user#visual_command_from_wise_name()"
+
+  " Valid usage
+  let v:errmsg = ''
+  silent! let _ = operator#user#visual_command_from_wise_name('char')
+  Assert _ ==> 'v'
+  Assert v:errmsg ==> ''
+
+  let v:errmsg = ''
+  silent! let _ = operator#user#visual_command_from_wise_name('char')
+  Assert operator#user#visual_command_from_wise_name('line') ==> 'V'
+  Assert v:errmsg ==> ''
+
+  let v:errmsg = ''
+  silent! let _ = operator#user#visual_command_from_wise_name('char')
+  Assert operator#user#visual_command_from_wise_name('block') ==> "\<C-v>"
+  Assert v:errmsg ==> ''
+
+  " Invalid {wise-name} - completely different
+  let v:errmsg = ''
+  silent! let _ = operator#user#visual_command_from_wise_name('invalid')
+  Assert _ ==> 'v'
+  Assert v:errmsg =~# 'operator-user:E1:'==> 1
+
+  " Invalid {wise-name} - different cases
+  let v:errmsg = ''
+  silent! let _ = operator#user#visual_command_from_wise_name('Char')
+  Assert _ ==> 'v'
+  Assert v:errmsg =~# 'operator-user:E1:'==> 1
+
+  let v:errmsg = ''
+  silent! let _ = operator#user#visual_command_from_wise_name('lIne')
+  Assert _ ==> 'v'
+  Assert v:errmsg =~# 'operator-user:E1:'==> 1
+
+  let v:errmsg = ''
+  silent! let _ = operator#user#visual_command_from_wise_name('lIne')
+  Assert _ ==> 'v'
+  Assert v:errmsg =~# 'operator-user:E1:'==> 1
+endfunction
+
+
+
+
 Test  "{{{1
 
 " __END__
