@@ -150,6 +150,7 @@ operator#user#visual_command_from_wise_name({wise-name})
 ==============================================================================
 EXAMPLES					*operator-user-examples*
 
+						*operator-user-examples-A*
 (A) The following setting defines operator-version of |:right|, and map "L" to
 execute the operator:
 >
@@ -160,6 +161,7 @@ execute the operator:
 	endfunction
 <
 
+						*operator-user-examples-B*
 (B) The following setting defines a generic version of (A).
     This is also an example to use {extra} for |operator#user#define()|:
 >
@@ -185,6 +187,7 @@ execute the operator:
 	endfunction
 <
 
+						*operator-user-examples-C*
 (C) With |operator#user#define_ex_command()|, the example (B) can be
     simplified as follows:
 >
@@ -196,6 +199,7 @@ execute the operator:
 	call operator#user#define_ex_command('align-right', 'right')
 	call operator#user#define_ex_command('align-center', 'center')
 <
+
 						*operator-user-examples-D*
 (D) In 'operatorfunc', we usually have to convert the name of the wise of
 {motion} into the corresponding command to start Visual mode.
@@ -250,6 +254,7 @@ CHANGELOG					*operator-user-changelog*
 
 0.0.5	2009-09-08T07:28:56+09:00	       *operator-user-changelog-0.0.5*
 	- Add |operator#user#visual_command_from_wise_name()|.
+	- Revise a bit of the document.
 
 0.0.4	2009-09-07T20:18:31+09:00	       *operator-user-changelog-0.0.4*
 	- Fix a bug that it rarely fails to select the same text as a given
