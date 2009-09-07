@@ -181,16 +181,16 @@ function s:test_operator_user_define_0004()  "{{{1
   map _  <Plug>(operator-gU)
   call operator#user#define('gU', 'TestOperatorFunction4')
 
-  silent put =['a', 'g', 'n', 'e', 's']
-  -4
-  normal v3j_
-  Assert getline('.', line('.')+4) ==> ['A', 'G', 'N', 'E', 's']
+  silent put =['avril agnes', 'amane alice']
+  -1
+  normal e_4l
+  Assert getline('.', line('.')+1) ==> ['avriL AGnes', 'amane alice']
 
     " FIXME: count in Visual mode is not supported.
-  silent put =['a', 'g', 'n', 'e', 's']
-  -4
-  normal v3_
-  Assert getline('.', line('.')+4) ==> ['A', 'g', 'n', 'e', 's']
+  silent put =['avril agnes', 'amane alice']
+  -1
+  normal 3lv3_
+  Assert getline('.', line('.')+1) ==> ['avrIl agnes', 'amane alice']
 endfunction
 
 

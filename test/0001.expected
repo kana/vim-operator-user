@@ -62,9 +62,9 @@ TEST: getline('.', line('.')+4)  ==>  ['a', 'e', 'g', 'n', 's'] ... FAILED
   Expected value: ['a', 'e', 'g', 'n', 's']
 Result: 19 / 20
 
-===== "operator#user#define(): count in Visual mode"4 lines changed
-TEST: getline('.', line('.')+4)  ==>  ['A', 'G', 'N', 'E', 's'] ... ok
-TEST: getline('.', line('.')+4)  ==>  ['A', 'g', 'n', 'e', 's'] ... ok
+===== "operator#user#define(): count in Visual mode"
+TEST: getline('.', line('.')+1)  ==>  ['avriL AGnes', 'amane alice'] ... ok
+TEST: getline('.', line('.')+1)  ==>  ['avrIl agnes', 'amane alice'] ... ok
 Result: 2 / 2
 
 ===== "operator#user#define_ex_command(): Typical usage"
