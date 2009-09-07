@@ -56,7 +56,6 @@ function! operator#user#_define(operator_keyseq, function_name, ...)  "{{{2
   \              string(a:function_name),
   \              additional_settings)
   execute printf(('vnoremap <script> <silent> %s ' .
-  \               '<Esc>' .
   \               ':<C-u>call operator#user#_set_up(%s)%s<Return>' .
   \               'gv' .
   \               'g@'),
