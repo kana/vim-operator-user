@@ -41,7 +41,13 @@ endfunction
 
 
 
-function! operator#user#_define(operator_keyseq, function_name, ...)  "{{{2
+
+
+
+
+" Misc.  "{{{1
+" Support functions for operator#user#define()  "{{{2
+function! operator#user#_define(operator_keyseq, function_name, ...)
   if 0 < a:0
     let additional_settings = '\|' . join(a:000)
   else
@@ -68,23 +74,7 @@ function! operator#user#_define(operator_keyseq, function_name, ...)  "{{{2
 endfunction
 
 
-
-
-function! operator#user#_do_ex_command(motion_wiseness)  "{{{2
-  execute "'[,']" s:ex_command
-endfunction
-
-
-
-
-function! operator#user#_set_ex_command(ex_command)  "{{{2
-  let s:ex_command = a:ex_command
-endfunction
-
-
-
-
-function! operator#user#_set_up(operator_function_name)  "{{{2
+function! operator#user#_set_up(operator_function_name)
   let &operatorfunc = a:operator_function_name
   let s:register_designation = v:register
 endfunction
@@ -92,24 +82,31 @@ endfunction
 
 
 
-function! operator#user#_sid_prefix()  "{{{2
-  return s:SID_PREFIX()
+" Support functions for operator#user#define_ex_command()  "{{{2
+function! operator#user#_do_ex_command(motion_wiseness)
+  execute "'[,']" s:ex_command
+endfunction
+
+
+function! operator#user#_set_ex_command(ex_command)
+  let s:ex_command = a:ex_command
 endfunction
 
 
 
 
+" Variables  "{{{2
+
+" See operator#user#_do_ex_command() and operator#user#_set_ex_command().
+" let s:ex_command = ''
+
+" See operator#user#_set_up() and s:register_designation()
+" let s:register_designation = ''
 
 
 
 
-" Misc.  "{{{1
-
-function! s:SID_PREFIX()
-  return matchstr(expand('<sfile>'), '\%(^\|\.\.\)\zs<SNR>\d\+_\zeSID_PREFIX$')
-endfunction
-
-
+" count  "{{{2
 " BUGS: The original definition is as follows but it rarely doesn't work,
 "       because v:count1 may be 0 in some cases.  It is a bug of Vim.
 "
@@ -120,6 +117,9 @@ nnoremap <expr> <SID>(count)  v:count ? v:count : ''
 " vnoremap <expr> <SID>(count)  v:count ? v:count : ''
 
 
+
+
+" register designation  "{{{2
 function! s:register_designation()
   return s:register_designation == '' ? '' : '"' . s:register_designation
 endfunction
@@ -128,11 +128,17 @@ nnoremap <expr> <SID>(register)  <SID>register_designation()
 vnoremap <expr> <SID>(register)  <SID>register_designation()
 
 
-" See operator#user#_do_ex_command() and operator#user#_set_ex_command().
-" let s:ex_command = ''
 
-" See operator#user#_set_up() and s:register_designation()
-" let s:register_designation = ''
+
+" <SID>  "{{{2
+function! operator#user#_sid_prefix()
+  return s:SID_PREFIX()
+endfunction
+
+
+function! s:SID_PREFIX()
+  return matchstr(expand('<sfile>'), '\%(^\|\.\.\)\zs<SNR>\d\+_\zeSID_PREFIX$')
+endfunction
 
 
 
