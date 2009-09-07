@@ -92,10 +92,14 @@ function! s:SID_PREFIX()
 endfunction
 
 
-nnoremap <expr> <SID>(count)  v:count == v:count1 ? v:count : ''
+" BUGS: The original definition is as follows but it rarely doesn't work,
+"       because v:count1 may be 0 in some cases.  It is a bug of Vim.
+"
+"       nnoremap <expr> <SID>(count)  v:count == v:count1 ? v:count : ''
+nnoremap <expr> <SID>(count)  v:count ? v:count : ''
 
 " FIXME: It's hard for user-defined operator to handle count in Visual mode.
-" vnoremap <expr> <SID>(count)  v:count == v:count1 ? v:count : ''
+" vnoremap <expr> <SID>(count)  v:count ? v:count : ''
 
 
 " See operator#user#_do_ex_command() and operator#user#_set_ex_command().
