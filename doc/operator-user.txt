@@ -67,6 +67,10 @@ See also |operator-user-exmaples| for more examples and explanations.
 Requirements:
 - Vim 7.2 or later
 
+Optionals:
+- |grex| (vimscript#2773)
+- |operator-replace| (vimscript#2782)
+
 Latest version:
 http://github.com/kana/config/commits/vim-operator-user
 
@@ -251,6 +255,10 @@ BUGS						*operator-user-bugs*
 
 ==============================================================================
 CHANGELOG					*operator-user-changelog*
+
+0.0.6	2009-09-10T20:36:13+09:00	       *operator-user-changelog-0.0.6*
+	- Add links for scripts that use this plugin.
+	  See |operator-user-introduction|.
 
 0.0.5	2009-09-08T07:28:56+09:00	       *operator-user-changelog-0.0.5*
 	- Add |operator#user#visual_command_from_wise_name()|.
