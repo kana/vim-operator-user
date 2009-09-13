@@ -70,6 +70,7 @@ Requirements:
 Optionals:
 - |grex| (vimscript#2773)
 - |operator-replace| (vimscript#2782)
+- |wwwsearch| (vimscript#2785)
 
 Latest version:
 http://github.com/kana/config/commits/vim-operator-user
