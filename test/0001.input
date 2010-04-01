@@ -1,20 +1,24 @@
-" Tests for operator-user
-function s:test_internal_key_mappings_0001()  "{{{1
-  Title "Check the existence of <SID>(count) in each mode"
+" Common set up  "{{{1
+
+
+
+
+function s:describe__internal_key_mappings_0001()  "{{{1
+  It "Check the existence of <SID>(count) in each mode"
 
   let _ = operator#user#_sid_prefix().'(count)'
-  Assert maparg(_, 'c') != '' ==> 0
-  Assert maparg(_, 'i') != '' ==> 0
-  Assert maparg(_, 'n') != '' ==> 1
-  Assert maparg(_, 'o') != '' ==> 0
-  Assert maparg(_, 'v') != '' ==> 0
+  Should maparg(_, 'c') != '' ==# 0
+  Should maparg(_, 'i') != '' ==# 0
+  Should maparg(_, 'n') != '' ==# 1
+  Should maparg(_, 'o') != '' ==# 0
+  Should maparg(_, 'v') != '' ==# 0
 endfunction
 
 
 
 
-function s:test_operator_user_define_0001()  "{{{1
-  Title "operator#user#define(): Typical usage"
+function s:describe__operator_user_define_0001()  "{{{1
+  It "operator#user#define(): Typical usage"
 
   function! TestOperatorFunction1(motion_wiseness)
     " echo getpos("'[") getpos("']")
@@ -25,42 +29,40 @@ function s:test_operator_user_define_0001()  "{{{1
   noremap <Plug>(operator-sort)  xxx
   call operator#user#define('sort', 'TestOperatorFunction1')
 
-  Assert maparg('<Plug>(operator-sort)', 'c') != '' ==> 0
-  Assert maparg('<Plug>(operator-sort)', 'i') != '' ==> 0
-  Assert maparg('<Plug>(operator-sort)', 'n') != '' ==> 1
-  Assert maparg('<Plug>(operator-sort)', 'o') != '' ==> 1
-  Assert maparg('<Plug>(operator-sort)', 'v') != '' ==> 1
-  Assert maparg('<Plug>(operator-sort)', 'n')
+  Should maparg('<Plug>(operator-sort)', 'c') != '' ==# 0
+  Should maparg('<Plug>(operator-sort)', 'i') != '' ==# 0
+  Should maparg('<Plug>(operator-sort)', 'n') != '' ==# 1
+  Should maparg('<Plug>(operator-sort)', 'o') != '' ==# 1
+  Should maparg('<Plug>(operator-sort)', 'v') != '' ==# 1
+  Should maparg('<Plug>(operator-sort)', 'n')
   \      =~# '\<TestOperatorFunction1\>'
-  \      ==> 1
-  Assert maparg('<Plug>(operator-sort)', 'o') ==> 'g@'
-  Assert maparg('<Plug>(operator-sort)', 'v')
+  Should maparg('<Plug>(operator-sort)', 'o') ==# 'g@'
+  Should maparg('<Plug>(operator-sort)', 'v')
   \      =~# '\<TestOperatorFunction1\>'
-  \      ==> 1
 
-  Assert maparg('_', 'c') != '' ==> 0
-  Assert maparg('_', 'i') != '' ==> 0
-  Assert maparg('_', 'n') != '' ==> 1
-  Assert maparg('_', 'o') != '' ==> 1
-  Assert maparg('_', 'v') != '' ==> 1
-  Assert maparg('_', 'n') ==> '<Plug>(operator-sort)'
-  Assert maparg('_', 'o') ==> '<Plug>(operator-sort)'
-  Assert maparg('_', 'v') ==> '<Plug>(operator-sort)'
+  Should maparg('_', 'c') != '' ==# 0
+  Should maparg('_', 'i') != '' ==# 0
+  Should maparg('_', 'n') != '' ==# 1
+  Should maparg('_', 'o') != '' ==# 1
+  Should maparg('_', 'v') != '' ==# 1
+  Should maparg('_', 'n') ==# '<Plug>(operator-sort)'
+  Should maparg('_', 'o') ==# '<Plug>(operator-sort)'
+  Should maparg('_', 'v') ==# '<Plug>(operator-sort)'
 
   silent put =['a', 'm', 'a', 'n', 'e']
   -4
   normal _4j
-  Assert getline('.', line('.')+4) ==> ['a', 'a', 'e', 'm', 'n']
+  Should getline('.', line('.')+4) ==# ['a', 'a', 'e', 'm', 'n']
 
   silent put =['a', 'v', 'r', 'i', 'l']
   -4
   normal v4j_
-  Assert getline('.', line('.')+4) ==> ['a', 'i', 'l', 'r', 'v']
+  Should getline('.', line('.')+4) ==# ['a', 'i', 'l', 'r', 'v']
 
   silent put =['a', 'g', 'n', 'e', 's']
   -4
   normal _5_
-  Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
+  Should getline('.', line('.')+4) ==# ['a', 'e', 'g', 'n', 's']
 
     " FIXME: This one works as I expect if '5__' is typed interactively,
     "        but it doesn't work via :normal and it selects only the current
@@ -68,14 +70,14 @@ function s:test_operator_user_define_0001()  "{{{1
   silent put =['a', 'g', 'n', 'e', 's']
   -4
   normal 5__
-  Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
+  Should getline('.', line('.')+4) ==# ['a', 'e', 'g', 'n', 's']
 endfunction
 
 
 
 
-function s:test_operator_user_define_0002()  "{{{1
-  Title "operator#user#define(): With {extra}s"
+function s:describe__operator_user_define_0002()  "{{{1
+  It "operator#user#define(): With {extra}s"
   map _  <Plug>(operator-yank)
   call operator#user#define('yank', 'TestOperatorFunction2',
   \                         'call', 'TestOperatorFunction2Set("yank")')
@@ -90,20 +92,20 @@ function s:test_operator_user_define_0002()  "{{{1
   -4
 
   silent normal __
-  Assert @0 ==> "a\n"
+  Should @0 ==# "a\n"
 
   silent normal _2j
-  Assert @0 ==> "a\nz\nu\n"
+  Should @0 ==# "a\nz\nu\n"
 
   silent normal v4j_
-  Assert @0 ==> "a\nz\nu\ns\na\n"
+  Should @0 ==# "a\nz\nu\ns\na\n"
 endfunction
 
 
 
 
-function s:test_operator_user_define_0003()  "{{{1
-  Title "operator#user#define(): With script-local function"
+function s:describe__operator_user_define_0003()  "{{{1
+  It "operator#user#define(): With script-local function"
 
   " FIXME: Script-local functions should not be accepted here.
   "
@@ -121,44 +123,42 @@ function s:test_operator_user_define_0003()  "{{{1
     '[,']sort
   endfunction
 
-  Assert maparg('<Plug>(operator-sort)', 'c') != '' ==> 0
-  Assert maparg('<Plug>(operator-sort)', 'i') != '' ==> 0
-  Assert maparg('<Plug>(operator-sort)', 'n') != '' ==> 1
-  Assert maparg('<Plug>(operator-sort)', 'o') != '' ==> 1
-  Assert maparg('<Plug>(operator-sort)', 'v') != '' ==> 1
-  Assert maparg('<Plug>(operator-sort)', 'n')
+  Should maparg('<Plug>(operator-sort)', 'c') != '' ==# 0
+  Should maparg('<Plug>(operator-sort)', 'i') != '' ==# 0
+  Should maparg('<Plug>(operator-sort)', 'n') != '' ==# 1
+  Should maparg('<Plug>(operator-sort)', 'o') != '' ==# 1
+  Should maparg('<Plug>(operator-sort)', 'v') != '' ==# 1
+  Should maparg('<Plug>(operator-sort)', 'n')
   \      =~# '\<test_operator_function_3\>'
-  \      ==> 1
-  Assert maparg('<Plug>(operator-sort)', 'o') ==> 'g@'
-  Assert maparg('<Plug>(operator-sort)', 'v')
+  Should maparg('<Plug>(operator-sort)', 'o') ==# 'g@'
+  Should maparg('<Plug>(operator-sort)', 'v')
   \      =~# '\<test_operator_function_3\>'
-  \      ==> 1
 
-  Assert maparg('@', 'c') != '' ==> 0
-  Assert maparg('@', 'i') != '' ==> 0
-  Assert maparg('@', 'n') != '' ==> 1
-  Assert maparg('@', 'o') != '' ==> 1
-  Assert maparg('@', 'v') != '' ==> 1
-  Assert maparg('@', 'n') ==> '<Plug>(operator-sort)'
-  Assert maparg('@', 'o') ==> '<Plug>(operator-sort)'
-  Assert maparg('@', 'v') ==> '<Plug>(operator-sort)'
+  Should maparg('@', 'c') != '' ==# 0
+  Should maparg('@', 'i') != '' ==# 0
+  Should maparg('@', 'n') != '' ==# 1
+  Should maparg('@', 'o') != '' ==# 1
+  Should maparg('@', 'v') != '' ==# 1
+  Should maparg('@', 'n') ==# '<Plug>(operator-sort)'
+  Should maparg('@', 'o') ==# '<Plug>(operator-sort)'
+  Should maparg('@', 'v') ==# '<Plug>(operator-sort)'
 
   silent % delete _
 
   silent put =['a', 'm', 'a', 'n', 'e']
   -4
   normal @4j
-  Assert getline('.', line('.')+4) ==> ['a', 'a', 'e', 'm', 'n']
+  Should getline('.', line('.')+4) ==# ['a', 'a', 'e', 'm', 'n']
 
   silent put =['a', 'v', 'r', 'i', 'l']
   -4
   normal v4j@
-  Assert getline('.', line('.')+4) ==> ['a', 'i', 'l', 'r', 'v']
+  Should getline('.', line('.')+4) ==# ['a', 'i', 'l', 'r', 'v']
 
   silent put =['a', 'g', 'n', 'e', 's']
   -4
   normal @5@
-  Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
+  Should getline('.', line('.')+4) ==# ['a', 'e', 'g', 'n', 's']
 
     " FIXME: This one works as I expect if '5@@' is typed interactively,
     "        but it doesn't work via :normal and it selects only the current
@@ -166,14 +166,14 @@ function s:test_operator_user_define_0003()  "{{{1
   silent put =['a', 'g', 'n', 'e', 's']
   -4
   normal 5@@
-  Assert getline('.', line('.')+4) ==> ['a', 'e', 'g', 'n', 's']
+  Should getline('.', line('.')+4) ==# ['a', 'e', 'g', 'n', 's']
 endfunction
 
 
 
 
-function s:test_operator_user_define_0004()  "{{{1
-  Title "operator#user#define(): count in Visual mode"
+function s:describe__operator_user_define_0004()  "{{{1
+  It "operator#user#define(): count in Visual mode"
 
   function! TestOperatorFunction4(motion_wiseness)
     normal! `[v`]gU
@@ -184,20 +184,20 @@ function s:test_operator_user_define_0004()  "{{{1
   silent put =['avril agnes', 'amane alice']
   -1
   normal e_4l
-  Assert getline('.', line('.')+1) ==> ['avriL AGnes', 'amane alice']
+  Should getline('.', line('.')+1) ==# ['avriL AGnes', 'amane alice']
 
     " FIXME: count in Visual mode is not supported.
   silent put =['avril agnes', 'amane alice']
   -1
   normal 3lv3_
-  Assert getline('.', line('.')+1) ==> ['avrIl agnes', 'amane alice']
+  Should getline('.', line('.')+1) ==# ['avrIl agnes', 'amane alice']
 endfunction
 
 
 
 
-function s:test_operator_user_define_0005()  "{{{1
-  Title "operator#user#define_ex_command(): Typical usage"
+function s:describe__operator_user_define_0005()  "{{{1
+  It "operator#user#define_ex_command(): Typical usage"
 
   map _  <Plug>(operator-join)
   call operator#user#define_ex_command('join', 'join')
@@ -205,22 +205,22 @@ function s:test_operator_user_define_0005()  "{{{1
   silent put =['a', 'm', 'a', 'n', 'e']
   -4
   normal _3j
-  Assert getline('.', line('.')+1) ==> ['a m a n', 'e']
+  Should getline('.', line('.')+1) ==# ['a m a n', 'e']
 
   silent put =['a', 'v', 'r', 'i', 'l']
   -4
   normal v3j_
-  Assert getline('.', line('.')+1) ==> ['a v r i', 'l']
+  Should getline('.', line('.')+1) ==# ['a v r i', 'l']
 
   silent put =['a', 'g', 'n', 'e', 's']
   -4
   normal _3_
-  Assert getline('.', line('.')+2) ==> ['a g n', 'e', 's']
+  Should getline('.', line('.')+2) ==# ['a g n', 'e', 's']
 
   silent put =['a', 'm', 'a', 'n', 'e']
   -4
   normal v3j_
-  Assert getline('.', line('.')+1) ==> ['a m a n', 'e']
+  Should getline('.', line('.')+1) ==# ['a m a n', 'e']
 
     " FIXME: This one works as I expect if '5__' is typed interactively,
     "        but it doesn't work via :normal and it selects only the current
@@ -228,20 +228,20 @@ function s:test_operator_user_define_0005()  "{{{1
   silent put =['a', 'g', 'n', 'e', 's']
   -4
   normal 4__
-  Assert getline('.', line('.')+1) ==> ['a g n e', 's']
+  Should getline('.', line('.')+1) ==# ['a g n e', 's']
 
     " FIXME: count in Visual mode is not supported.
   silent put =['a', 'g', 'n', 'e', 's']
   -4
   normal v3_
-  Assert getline('.', line('.')+4) ==> ['a', 'g', 'n', 'e', 's']
+  Should getline('.', line('.')+4) ==# ['a', 'g', 'n', 'e', 's']
 endfunction
 
 
 
 
-function s:test_operator_user_define_0006()  "{{{1
-  Title "register designation for user defined operator"
+function s:describe__operator_user_define_0006()  "{{{1
+  It "register designation for user defined operator"
 
   map _  <Plug>(operator-echo)
   call operator#user#define('echo', 'TestOperatorFunction6')
@@ -250,85 +250,83 @@ function s:test_operator_user_define_0006()  "{{{1
   endfunction
 
   normal __
-  Assert getline('.') ==> '"'
+  Should getline('.') ==# '"'
 
   normal ""_L
-  Assert getline('.') ==> '"'
+  Should getline('.') ==# '"'
 
   normal "A_w
-  Assert getline('.') ==> 'A'
+  Should getline('.') ==# 'A'
 
   normal 3"x_k
-  Assert getline('.') ==> 'x'
+  Should getline('.') ==# 'x'
 
   normal "y8_G
-  Assert getline('.') ==> 'y'
+  Should getline('.') ==# 'y'
 
   normal v_
-  Assert getline('.') ==> '"'
+  Should getline('.') ==# '"'
 
   normal V""_
-  Assert getline('.') ==> '"'
+  Should getline('.') ==# '"'
 
   normal v"A_
-  Assert getline('.') ==> 'A'
+  Should getline('.') ==# 'A'
 
   normal V3"x_
-  Assert getline('.') ==> 'x'
+  Should getline('.') ==# 'x'
 
   normal v"y8_
-  Assert getline('.') ==> 'y'
+  Should getline('.') ==# 'y'
 endfunction
 
 
 
 
-function s:test_operator_user_define_0007()  "{{{1
-  Title "operator#user#visual_command_from_wise_name()"
+function s:describe__operator_user_define_0007()  "{{{1
+  It "operator#user#visual_command_from_wise_name()"
 
   " Valid usage
   let v:errmsg = ''
   silent! let _ = operator#user#visual_command_from_wise_name('char')
-  Assert _ ==> 'v'
-  Assert v:errmsg ==> ''
+  Should _ ==# 'v'
+  Should v:errmsg ==# ''
 
   let v:errmsg = ''
   silent! let _ = operator#user#visual_command_from_wise_name('char')
-  Assert operator#user#visual_command_from_wise_name('line') ==> 'V'
-  Assert v:errmsg ==> ''
+  Should operator#user#visual_command_from_wise_name('line') ==# 'V'
+  Should v:errmsg ==# ''
 
   let v:errmsg = ''
   silent! let _ = operator#user#visual_command_from_wise_name('char')
-  Assert operator#user#visual_command_from_wise_name('block') ==> "\<C-v>"
-  Assert v:errmsg ==> ''
+  Should operator#user#visual_command_from_wise_name('block') ==# "\<C-v>"
+  Should v:errmsg ==# ''
 
   " Invalid {wise-name} - completely different
   let v:errmsg = ''
   silent! let _ = operator#user#visual_command_from_wise_name('invalid')
-  Assert _ ==> 'v'
-  Assert v:errmsg =~# 'operator-user:E1:'==> 1
+  Should _ ==# 'v'
+  Should v:errmsg =~# 'operator-user:E1:'
 
   " Invalid {wise-name} - different cases
   let v:errmsg = ''
   silent! let _ = operator#user#visual_command_from_wise_name('Char')
-  Assert _ ==> 'v'
-  Assert v:errmsg =~# 'operator-user:E1:'==> 1
+  Should _ ==# 'v'
+  Should v:errmsg =~# 'operator-user:E1:'
 
   let v:errmsg = ''
   silent! let _ = operator#user#visual_command_from_wise_name('lIne')
-  Assert _ ==> 'v'
-  Assert v:errmsg =~# 'operator-user:E1:'==> 1
+  Should _ ==# 'v'
+  Should v:errmsg =~# 'operator-user:E1:'
 
   let v:errmsg = ''
   silent! let _ = operator#user#visual_command_from_wise_name('lIne')
-  Assert _ ==> 'v'
-  Assert v:errmsg =~# 'operator-user:E1:'==> 1
+  Should _ ==# 'v'
+  Should v:errmsg =~# 'operator-user:E1:'
 endfunction
 
 
 
 
-Test  "{{{1
-
-" __END__
+" __END__  "{{{1
 " vim: filetype=vim foldmethod=marker
