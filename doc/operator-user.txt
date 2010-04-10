@@ -61,7 +61,7 @@ You can use this operator as follows:
 
 This operator is useful to adjust the visible content in the current window.
 
-See also |operator-user-exmaples| for more examples and explanations.
+See also |operator-user-examples| for more examples and explanations.
 
 
 Requirements:
