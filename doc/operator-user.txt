@@ -1,6 +1,6 @@
 *operator-user.txt*	Define your own operator easily
 
-Version 0.0.5
+Version 0.0.6
 Script ID: 2692
 Copyright (C) 2009 kana <http://whileimautomaton.net/>
 License: MIT license  {{{
@@ -260,6 +260,8 @@ CHANGELOG					*operator-user-changelog*
 0.0.6	2009-09-10T20:36:13+09:00	       *operator-user-changelog-0.0.6*
 	- Add links for scripts that use this plugin.
 	  See |operator-user-introduction|.
+	- Refine the document a bit.
+	- Refine the internal structure a bit.
 
 0.0.5	2009-09-08T07:28:56+09:00	       *operator-user-changelog-0.0.5*
 	- Add |operator#user#visual_command_from_wise_name()|.
