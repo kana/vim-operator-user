@@ -34,7 +34,7 @@ function! operator#user#define_ex_command(name, ex_command)  "{{{2
   return operator#user#define(
   \        a:name,
   \        'operator#user#_do_ex_command',
-  \        'call operator#user#_set_ex_command(''' . a:ex_command . ''')'
+  \        'call operator#user#_set_ex_command(' . string(a:ex_command) . ')'
   \      )
 endfunction
 
