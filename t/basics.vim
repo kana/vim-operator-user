@@ -272,6 +272,18 @@ describe 'operator#user#define_ex_command'
     normal v3_
     Expect getline('.', line('.')+4) ==# ['a', 'g', 'n', 'e', 's']
   end
+
+  it 'should accept a one-line script, especially including "''"'
+    map _  <Plug>(operator-substitute)
+    call operator#user#define_ex_command('substitute', 's/-/''/')
+
+    silent put =['foo-bar-baz']
+    Expect getline('.', line('.')+0) ==# ['foo-bar-baz']
+    normal V_
+    Expect getline('.', line('.')+0) ==# ['foo''bar-baz']
+    normal V_
+    Expect getline('.', line('.')+0) ==# ['foo''bar''baz']
+  end
 end
 
 
