@@ -260,6 +260,10 @@ BUGS						*operator-user-bugs*
 ==============================================================================
 CHANGELOG					*operator-user-changelog*
 
+0.0.8	2014-03-06T23:49:34+09:00	       *operator-user-changelog-0.0.8*
+	- Fix wrong implementation of |operator-user-examples-D|.
+	- Refine tests.
+
 0.0.7	2012-06-02T14:11:08+09:00	       *operator-user-changelog-0.0.7*
 	- |operator#user#define_ex_command|:
 	  Support {ex-command} including "'".
