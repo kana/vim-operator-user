@@ -68,9 +68,9 @@ Requirements:
 - Vim 7.2 or later
 
 Optionals:
-- |grex| (vimscript#2773)
-- |operator-replace| (vimscript#2782)
-- |wwwsearch| (vimscript#2785)
+- |grex|              https://github.com/kana/vim-grex
+- |operator-replace|  https://github.com/kana/vim-operator-replace
+- |wwwsearch|         https://github.com/kana/vim-wwwsearch
 
 Latest version:
 https://github.com/kana/vim-operator-user
