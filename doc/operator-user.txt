@@ -211,12 +211,15 @@ execute the operator:
 With |operator#user#visual_command_from_wise_name()|,
 This routine can be written as follows:
 >
-	call operator#user#define('void-change', 'OperatorVoidChange',
-	function! OperatorVoidChange(motion_wise)
+	call operator#user#define('void-change', 'OperatorVoidDelete')
+	function! OperatorVoidDelete(motion_wise)
 	  let v = operator#user#visual_command_from_wise_name(a:motion_wise)
-	  execute 'normal!' '`[' . v . '`]"_c' 
+	  execute 'normal!' '`[' . v . '`]"_d'
 	endfunction
 <
+This operator itself is not useful.  But it can be used as a template to
+define useful operators, for example, an operator to replace a target text
+with a register content.
 
 
 
