@@ -227,6 +227,9 @@ with a register content.
 ==============================================================================
 BUGS						*operator-user-bugs*
 
+If you have any problems except the following, please send a feedback at:
+https://github.com/kana/vim-operator-user/issues
+
 						*operator-user-bugs-A*
 (A) |operator#user#define()| defines a key mapping "<Plug>(operator-{name}) to
     |g@|" in Operator-pending mode to select text linewise like |cc|, |dd|,
