@@ -73,7 +73,7 @@ Optionals:
 - |wwwsearch| (vimscript#2785)
 
 Latest version:
-http://github.com/kana/config/commits/vim-operator-user
+https://github.com/kana/vim-operator-user
 
 Document in HTML format:
 http://kana.github.com/config/vim/operator-user.html
