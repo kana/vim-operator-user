@@ -1,9 +1,9 @@
 *operator-user.txt*	Define your own operator easily
 
-Version 0.0.7
+Version 0.0.8
 Script ID: 2692
-Copyright (C) 2009-2012 Kana Natsuno <http://whileimautomaton.net/>
-License: So-called MIT/X license  {{{
+Copyright (C) 2009-2014 Kana Natsuno <http://whileimautomaton.net/>
+License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
     a copy of this software and associated documentation files (the
     "Software"), to deal in the Software without restriction, including
@@ -68,15 +68,15 @@ Requirements:
 - Vim 7.2 or later
 
 Optionals:
-- |grex| (vimscript#2773)
-- |operator-replace| (vimscript#2782)
-- |wwwsearch| (vimscript#2785)
+- |grex|              https://github.com/kana/vim-grex
+- |operator-replace|  https://github.com/kana/vim-operator-replace
+- |wwwsearch|         https://github.com/kana/vim-wwwsearch
 
 Latest version:
-http://github.com/kana/config/commits/vim-operator-user
+https://github.com/kana/vim-operator-user
 
 Document in HTML format:
-http://kana.github.com/config/vim/operator-user.html
+http://vim-doc.heroku.com/view?https://raw.github.com/kana/vim-operator-user/master/doc/operator-user.txt
 
 
 
@@ -227,6 +227,9 @@ with a register content.
 ==============================================================================
 BUGS						*operator-user-bugs*
 
+If you have any problems except the following, please send a feedback at:
+https://github.com/kana/vim-operator-user/issues
+
 						*operator-user-bugs-A*
 (A) |operator#user#define()| defines a key mapping "<Plug>(operator-{name}) to
     |g@|" in Operator-pending mode to select text linewise like |cc|, |dd|,
@@ -259,6 +262,10 @@ BUGS						*operator-user-bugs*
 
 ==============================================================================
 CHANGELOG					*operator-user-changelog*
+
+0.0.8	2014-03-06T23:49:34+09:00	       *operator-user-changelog-0.0.8*
+	- Fix wrong implementation of |operator-user-examples-D|.
+	- Refine tests.
 
 0.0.7	2012-06-02T14:11:08+09:00	       *operator-user-changelog-0.0.7*
 	- |operator#user#define_ex_command|:
