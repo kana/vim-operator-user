@@ -92,6 +92,7 @@ endfunction
 
 function! operator#user#_set_up(operator_function_name)
   let &operatorfunc = a:operator_function_name
+  let s:count = v:count
   let s:register_designation = v:register
 endfunction
 
@@ -116,6 +117,9 @@ endfunction
 " See operator#user#_do_ex_command() and operator#user#_set_ex_command().
 " let s:ex_command = ''
 
+" See operator#user#_set_up() and s:count()
+" let s:count = ''
+
 " See operator#user#_set_up() and s:register_designation()
 " let s:register_designation = ''
 
@@ -123,14 +127,14 @@ endfunction
 
 
 " count  "{{{2
-" BUGS: The original definition is as follows but it rarely doesn't work,
-"       because v:count1 may be 0 in some cases.  It is a bug of Vim.
-"
-"       nnoremap <expr> <SID>(count)  v:count == v:count1 ? v:count : ''
-nnoremap <expr> <SID>(count)  v:count ? v:count : ''
+function! s:count()
+  return s:count ? s:count : ''
+endfunction
+
+nnoremap <expr> <SID>(count)  <SID>count()
 
 " FIXME: It's hard for user-defined operator to handle count in Visual mode.
-" vnoremap <expr> <SID>(count)  v:count ? v:count : ''
+" nnoremap <expr> <SID>(count)  <SID>count()
 
 
 
