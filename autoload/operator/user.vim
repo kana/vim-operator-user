@@ -1,5 +1,5 @@
 " operator-user - Define your own operator easily
-" Version: 0.0.8
+" Version: 0.0.9
 " Copyright (C) 2009-2014 Kana Natsuno <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining

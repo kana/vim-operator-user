@@ -1,6 +1,6 @@
 *operator-user.txt*	Define your own operator easily
 
-Version 0.0.8
+Version 0.0.9
 Script ID: 2692
 Copyright (C) 2009-2014 Kana Natsuno <http://whileimautomaton.net/>
 License: MIT license  {{{
