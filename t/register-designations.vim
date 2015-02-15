@@ -4,6 +4,17 @@ function! OperatorEcho(motion_wise)
   put =v:register
 endfunction
 
+function! Do(normal_command)
+  execute 'normal' a:normal_command
+  return getline('.')
+endfunction
+
+let ToUseRegister = {}
+function! ToUseRegister.match(actual, expected)
+  return a:actual ==# a:expected
+endfunction
+call vspec#customize_matcher('to_use_register', ToUseRegister)
+
 describe 'operator#user#define'
   before
     new
@@ -14,34 +25,15 @@ describe 'operator#user#define'
   end
 
   it 'supports a register designation'
-    normal __
-    Expect getline('.') ==# '"'
-
-    normal ""_L
-    Expect getline('.') ==# '"'
-
-    normal "A_w
-    Expect getline('.') ==# 'A'
-
-    normal 3"x_k
-    Expect getline('.') ==# 'x'
-
-    normal "y8_G
-    Expect getline('.') ==# 'y'
-
-    normal v_
-    Expect getline('.') ==# '"'
-
-    normal V""_
-    Expect getline('.') ==# '"'
-
-    normal v"A_
-    Expect getline('.') ==# 'A'
-
-    normal V3"x_
-    Expect getline('.') ==# 'x'
-
-    normal v"y8_
-    Expect getline('.') ==# 'y'
+    Expect Do('__') ==# '"'
+    Expect Do('""_L') ==# '"'
+    Expect Do('"A_w') ==# 'A'
+    Expect Do('3"x_k') ==# 'x'
+    Expect Do('"y8_G') ==# 'y'
+    Expect Do('v_') ==# '"'
+    Expect Do('V""_') ==# '"'
+    Expect Do('v"A_') ==# 'A'
+    Expect Do('V3"x_') ==# 'x'
+    Expect Do('v"y8_') ==# 'y'
   end
 end
