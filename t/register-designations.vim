@@ -1,12 +1,13 @@
 map _  <Plug>(operator-echo)
 call operator#user#define('echo', 'OperatorEcho')
+let s:register = ''
 function! OperatorEcho(motion_wise)
-  put =v:register
+  let s:register = v:register
 endfunction
 
 function! Do(normal_command)
   execute 'normal' a:normal_command
-  return getline('.')
+  return s:register
 endfunction
 
 let ToUseRegister = {}
@@ -28,7 +29,7 @@ describe 'operator#user#define'
     Expect Do('__') ==# '"'
     Expect Do('""_L') ==# '"'
     Expect Do('"A_w') ==# 'A'
-    Expect Do('3"x_k') ==# 'x'
+    Expect Do('3"x_w') ==# 'x'
     Expect Do('"y8_G') ==# 'y'
     Expect Do('v_') ==# '"'
     Expect Do('V""_') ==# '"'
