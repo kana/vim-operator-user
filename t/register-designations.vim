@@ -1,7 +1,7 @@
 map _  <Plug>(operator-echo)
-call operator#user#define('echo', 'OperatorEcho')
+call operator#user#define('echo', 'OperatorMemorize')
 let s:register = ''
-function! OperatorEcho(motion_wise)
+function! OperatorMemorize(motion_wise)
   let s:register = v:register
 endfunction
 
