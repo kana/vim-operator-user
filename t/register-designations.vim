@@ -1,11 +1,12 @@
+map _  <Plug>(operator-echo)
+call operator#user#define('echo', 'OperatorEcho')
+function! OperatorEcho(motion_wise)
+  put =v:register
+endfunction
+
 describe 'operator#user#define'
   before
     new
-    map <buffer> _  <Plug>(operator-echo)
-    call operator#user#define('echo', 'b:OperatorEcho')
-    function! b:OperatorEcho(motion_wise)
-      put =v:register
-    endfunction
   end
 
   after
