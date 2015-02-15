@@ -10,7 +10,7 @@ describe 'operator#user#define'
     new
     read t/fixtures/sample.txt
     1
-    function! b:check(cases)
+    function! b:.check(cases)
       for [command, c] in a:cases
         execute 'normal' 'gg'.command
         Expect [command, 'targets', getline('$')]
@@ -24,7 +24,7 @@ describe 'operator#user#define'
   end
 
   it 'supports a count given to an operator'
-    call b:check([
+    call b:.check([
     \   ['CC', 1],
     \   ['1CC', 1],
     \   ['2CC', 2],
@@ -33,7 +33,7 @@ describe 'operator#user#define'
   end
 
   it 'supports a count given to a motion'
-    call b:check([
+    call b:.check([
     \   ['C2C', 2],
     \   ['C3C', 3],
     \   ['C6C', 6],
@@ -41,7 +41,7 @@ describe 'operator#user#define'
   end
 
   it 'supports counts given to both an operator and a motion'
-    call b:check([
+    call b:.check([
     \   ['2C3C', 6],
     \   ['4C2C', 8],
     \ ])
