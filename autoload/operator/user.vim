@@ -41,6 +41,13 @@ endfunction
 
 
 
+function! operator#user#register()  "{{{2
+  return s:register
+endfunction
+
+
+
+
 function! operator#user#visual_command_from_wise_name(wise_name)  "{{{2
   if a:wise_name ==# 'char'
     return 'v'
