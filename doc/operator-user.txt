@@ -135,6 +135,14 @@ operator#user#define_ex_command({name}, {ex-command})
 					'[,']{ex-command}
 <
 
+						*operator#user#register()*
+operator#user#register()
+			Return the name of the last register which is given to
+			a custom operator defined by |operator-user|.  Use
+			this function instead of |v:register|, because
+			v:register might be overwritten if a custom operator
+			is combined with a custom text object.
+
 			       *operator#user#visual_command_from_wise_name()*
 operator#user#visual_command_from_wise_name({wise-name})
 			Return a "visual command" corresponding to
