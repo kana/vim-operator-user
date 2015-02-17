@@ -22,6 +22,15 @@ call vspec#customize_matcher('to_use_register', ToUseRegister)
 describe 'operator#user#define'
   before
     new
+
+    " Reset v:register to '"' for ease of testing.
+    "
+    " Unfortunately, v:register is not reset after executing each operator.
+    " But it is reset after executing non-operator command such as h, j, etc.
+    " So that 'operatorfunc' might use a wrong v:register value.  Suppose that
+    " user types `"ayyg@g@`, v:register should contain '"', but it actually
+    " contains 'a'.  The same can be said for `"ayyddg@g@`.
+    normal! ""Y
   end
 
   after
