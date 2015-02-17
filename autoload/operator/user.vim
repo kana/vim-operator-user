@@ -1,6 +1,6 @@
 " operator-user - Define your own operator easily
 " Version: 0.0.9
-" Copyright (C) 2009-2014 Kana Natsuno <http://whileimautomaton.net/>
+" Copyright (C) 2009-2015 Kana Natsuno <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
